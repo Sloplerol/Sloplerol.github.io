@@ -1,0 +1,690 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><title>CalculateForJava</title>
+<link rel="stylesheet" href="/css/layout.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="shortcut icon" href="/img/favicon.png"><meta name="generator" content="Hexo 6.3.0"></head><body><header class="base-menu"><div class="menu-wrapper"><div class="menu-layout-bg"></div><nav class="menu-content"><ul class="menu-list"><li class="menu-item"><a href="/" class="menu-link">Coding Excellent</a></li><li class="menu-item"><a href="/blog/archives" class="menu-link">Archives</a></li><li class="menu-item"><a href="/about" class="menu-link">About</a></li></ul></nav></div></header><header class="base-mobile-menu"><div class="mobile-menu-wrapper"><div class="menu-layout-bg"></div><nav class="menu-content"><ul class="menu-list"><li class="menu-item"><a href="/" class="menu-link">Coding Excellent</a></li><li class="menu-item"><a href="/blog/archives" class="menu-link">Archives</a></li><li class="menu-item"><a href="/about" class="menu-link">About</a></li></ul></nav><div id="mobile-menu-toggle" class="toggle-menu"><span class="menu-bar"></span><span class="menu-bar"> </span><span class="menu-bar"></span></div></div></header><div class="base-content"><div class="base-content-main"><article class="article-main"><h1 class="article-title">CalculateForJava</h1><div class="article-meta"><p class="meta-item meta-time"><span class="meta-item-title">发表于: </span>2023-05-07</p><p class="meta-item meta-category"></p></div><div class="article-content"><center><font face="宋体" color=lightgreen size=6>~Java数据结构与算法～</font></center>
+
+<hr>
+<p><font size = 3 color = orange>目录</font></p>
+<ul>
+<li><p><a href="#1">时间复杂度</a></p>
+</li>
+<li><p><a href="#2">排序</a></p>
+</li>
+<li><p><a href="#3">查找</a></p>
+</li>
+<li><p><a href="#4">哈希表</a></p>
+</li>
+<li><p><a href="#5">线性表</a></p>
+</li>
+<li><p><a href="#6">链表</a></p>
+</li>
+<li><p><a href="#7">队列</a></p>
+</li>
+<li><p><a href="#8">栈</a></p>
+</li>
+<li><p><a href="#9">递归</a></p>
+</li>
+<li><p><a href="#10">树</a></p>
+</li>
+</ul>
+<p id="1"></p>
+
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><ul>
+<li><p>算法函数的常数可以忽略</p>
+</li>
+<li><p>算法函数幂指数前的常数项可以进行忽略</p>
+</li>
+<li><p>幂越小说明耗费的时间越少</p>
+</li>
+</ul>
+<ul>
+<li><p><input disabled="" type="checkbox"> 
+常见的时间复杂度</p>
+<blockquote>
+<p>以下的时间复杂度逐渐变大</p>
+</blockquote>
+<ul>
+<li><p>O(1)</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">只要没有循环时间复杂度就是O(1)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>O(log2n)</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while(i &lt; n)&#123;</span><br><span class="line">		i *= 2;</span><br><span class="line">&#125;</span><br><span class="line">//x = log2n</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>O(n);</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for(int i = 0;i &lt; n;i++)&#123;</span><br><span class="line">		j = i;</span><br><span class="line">		j++;</span><br><span class="line">&#125;</span><br><span class="line">//这段代码会判断n + 1遍 时间复杂度是O(n)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>O(nlog2n)</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O(n)里面套了一个O(log2n)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>O(n ^ 2)</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O(n)里面套了一个O(n);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>O(n ^ 3)</p>
+</li>
+<li><p>O(n ^ k)</p>
+</li>
+<li><p>O(2 ^ n)</p>
+</li>
+</ul>
+</li>
+</ul>
+<p id="2"></p>
+
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><ul>
+<li>原理：俩俩比较，俩俩交换，最后将最大值放到最右边</li>
+<li>一共进行了数组-1次大的循环</li>
+<li>每一次循环的次数在不断减少</li>
+<li>时间复杂度O(n * 2)</li>
+<li><strong>优化：可以判断交换次数，如果没有发生交换可以提前结束</strong></li>
+</ul>
+<ul>
+<li><p><input disabled="" type="checkbox"> 
+代码实现</p>
+<p>  <strong>核心代码</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int[] arr = &#123;-2,5,1,3,6&#125;;</span><br><span class="line">int temp = 0;</span><br><span class="line">//一次for循环,总共需要四回</span><br><span class="line">for(int i = 0;i &lt; arr.length - 1;i++)&#123;</span><br><span class="line">			if(arr[i] &gt; arr[i + 1])&#123;</span><br><span class="line">				temp = arr[i];</span><br><span class="line">				arr[i] = arr[i + 1];</span><br><span class="line">				arr[i + 1] = temp;</span><br><span class="line">			&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>成品展示</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int temp = 0;</span><br><span class="line">for(int i = 0;i &lt; arr.length - 1;i++)&#123;</span><br><span class="line">    for(int j = 0;j &lt; arr.length - 1 - i;j++)&#123;</span><br><span class="line">        if(arr[j] &gt; arr[j + 1])&#123;</span><br><span class="line">            temp = arr[j];</span><br><span class="line">            arr[j] = arr[j + 1];</span><br><span class="line">            arr[j + 1] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(Arrays.toString(arr));</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>优化</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">boolean flag = false;</span><br><span class="line">for(int j = 0;j &lt; arr.length - i - 1;j++)&#123;</span><br><span class="line">    if(arr[j] &gt; arr[j + 1])&#123;</span><br><span class="line">        temp = arr[j];</span><br><span class="line">        arr[j] = arr[j + 1];</span><br><span class="line">        arr[j + 1] = temp;</span><br><span class="line">        flag = true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//如果未发生交换break</span><br><span class="line">if(!flag)&#123;</span><br><span class="line">    break;</span><br><span class="line">&#125;else &#123;</span><br><span class="line">    flag = false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><ul>
+<li>原理：从第一个元素开始，与后面的元素进行比对，发现一个最小的将值赋值给他，让最小索引等于他</li>
+<li>时间复杂度O(n * 2) —– 时间比冒泡少了很多</li>
+</ul>
+<ul>
+<li><p><input disabled="" type="checkbox"> 
+代码实现</p>
+<p>  <strong>第一次排序</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int min = arr[0];</span><br><span class="line">int minIndex = 0;</span><br><span class="line">for(int i = 0 + 1;i &lt; arr.length;i++)&#123;</span><br><span class="line">    if(min &gt; arr[i])&#123;</span><br><span class="line">        min = arr[i];</span><br><span class="line">        minIndex = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">if(minIndex != 0)&#123;</span><br><span class="line">    arr[minIndex] = arr[0];</span><br><span class="line">    arr[0] = min;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>成品展示</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">for(int j = 0;j &lt; arr.length - 1;j++)&#123;</span><br><span class="line">    int min = arr[j];</span><br><span class="line">    int minIndex = j;</span><br><span class="line">    for(int i = j + 1;i &lt; arr.length;i++)&#123;</span><br><span class="line">        if(min &gt; arr[i])&#123;</span><br><span class="line">            min = arr[i];</span><br><span class="line">            minIndex = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(minIndex != j)&#123;</span><br><span class="line">        arr[minIndex] = arr[j];</span><br><span class="line">        arr[j] = min;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><ul>
+<li><p>原理：从第二个元素开始不断的往前面插入合适的位置</p>
+</li>
+<li><p>代码</p>
+<p>  <strong>核心代码</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int insertVal = arr[1];</span><br><span class="line">//代表的是插入元素的索引</span><br><span class="line">int insertIndex = 1 - 1;</span><br><span class="line">while(insertIndex &gt;= 0 &amp;&amp; insertVal &lt; arr[insertIndex])&#123;</span><br><span class="line">    arr[insertIndex + 1] = arr[insertIndex];</span><br><span class="line">    insertIndex--;</span><br><span class="line">&#125;</span><br><span class="line">arr[insertIndex + 1] = insertVal;</span><br><span class="line">System.out.println(Arrays.toString(arr));</span><br><span class="line">return arr;</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>成品代码</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for(int i = 1;i &lt; arr.length;i++)&#123;</span><br><span class="line">    int insertVal = arr[i];</span><br><span class="line">    //代表的是插入元素的索引</span><br><span class="line">    int insertIndex = i - 1;</span><br><span class="line">    while(insertIndex &gt;= 0 &amp;&amp; insertVal &lt; arr[insertIndex])&#123;</span><br><span class="line">        arr[insertIndex + 1] = arr[insertIndex];</span><br><span class="line">        insertIndex--;</span><br><span class="line">    &#125;</span><br><span class="line">    arr[insertIndex + 1] = insertVal;</span><br><span class="line">    System.out.println(Arrays.toString(arr));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h4><ul>
+<li>原理：将一组数&#x2F;2分成多组进行排序，直到最后等于零为止，相当于是插入排序的进阶版</li>
+</ul>
+<ul>
+<li><p><input disabled="" type="checkbox"> 
+代码</p>
+<p>  <strong>采用交换法的希尔排序</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">for(int h = arr.length / 2;h &gt; 0;h /= 2)&#123;</span><br><span class="line">    for(int i = h;i &lt; arr.length;i++)&#123;</span><br><span class="line">        for(int j = i - h;j &gt;= 0;j -= h)&#123;</span><br><span class="line">            if(arr[j] &gt; arr[j + h])&#123;</span><br><span class="line">                int temp = arr[j];</span><br><span class="line">                arr[j] = arr[j + h];</span><br><span class="line">                arr[j + h] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(Arrays.toString(arr));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>采用移动法的希尔排序</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for(int gap = arr.length / 2;gap &gt; 0;gap /= 2)&#123;</span><br><span class="line">    for(int j = gap;j &lt; arr.length;j++)&#123;</span><br><span class="line">        int i = j;</span><br><span class="line">        int temp = arr[i];</span><br><span class="line">        if(arr[i] &lt; arr[i - gap])&#123;</span><br><span class="line">            while(i - gap &gt;= 0 &amp;&amp; temp &lt; arr[i - gap])&#123;</span><br><span class="line">                arr[i] = arr[i - gap];</span><br><span class="line">                i -= gap;</span><br><span class="line">            &#125;</span><br><span class="line">            arr[i] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><ul>
+<li><p>原理：假如比较的是4578 1236将数组分成两半，重新定义一个新数组，首先比较4和1谁小放入到新数组中，然后小的向后移接着进行比较</p>
+</li>
+<li><p>注意点</p>
+<ul>
+<li>有n个数进行排序，就合并了n - 1次</li>
+</ul>
+</li>
+<li><p>代码</p>
+<p>  <strong>合代码</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public static void MergeSort(int[] arr,int left,int mid,int right,int[] temp)&#123;</span><br><span class="line">        int i = left;</span><br><span class="line">        int j = mid + 1;</span><br><span class="line">        int t = 0;</span><br><span class="line">        while(i &lt;= mid &amp;&amp; j &lt;= right)&#123;</span><br><span class="line">            if(arr[i] &lt;= arr[j])&#123;</span><br><span class="line">                temp[t] = arr[i];</span><br><span class="line">                t++;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                temp[t] = arr[j];</span><br><span class="line">                t++;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        while(i &lt;= mid)&#123;</span><br><span class="line">            temp[t] = arr[i];</span><br><span class="line">            t++;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        while(j &lt;= right)&#123;</span><br><span class="line">            temp[t] = arr[j];</span><br><span class="line">            t++;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        //从头到尾将新数组拷贝到原数组中</span><br><span class="line">        t = 0;</span><br><span class="line">        int tempLeft = left;</span><br><span class="line">        while(tempLeft &lt;= right)&#123;</span><br><span class="line">            arr[tempLeft] = temp[t];</span><br><span class="line">            tempLeft++;</span><br><span class="line">            t++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>分代码</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public static void divideSort(int[] arr,int left,int right,int[] temp)&#123;</span><br><span class="line">        if(left &lt; right)&#123;</span><br><span class="line">            int mid = (left + right) / 2;</span><br><span class="line">            //左递归</span><br><span class="line">            divideSort(arr,left,mid,temp);</span><br><span class="line">            //右递归</span><br><span class="line">            divideSort(arr,mid + 1,right,temp);</span><br><span class="line">            //合并</span><br><span class="line">            MergeSort(arr,left,mid,right,temp);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><ul>
+<li><p>原理：以这组数据的中间值为标准，将数据分为左递归和右递归，在左边找到比这个中间值大的和在右边找到比中间值小的进行交换</p>
+</li>
+<li><p>代码</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public static void QuickSort(int[] arr,int left,int right)&#123;</span><br><span class="line">        int l = left;</span><br><span class="line">        int r = right;</span><br><span class="line">        int temp = 0;</span><br><span class="line">        int pivot = arr[(left + right) / 2];</span><br><span class="line">        while(l &lt; r)&#123;</span><br><span class="line">            while(arr[l] &lt; pivot)&#123;</span><br><span class="line">                l++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            while(arr[r] &gt; pivot)&#123;</span><br><span class="line">                r--;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if(l &gt;= r)&#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            temp = arr[l];</span><br><span class="line">            arr[l] = arr[r];</span><br><span class="line">            arr[r] = temp;</span><br><span class="line">            //两边的值交换完毕</span><br><span class="line"></span><br><span class="line">            //如果发现交换后左边的值等于pivot</span><br><span class="line">            if(arr[l] == pivot)&#123;</span><br><span class="line">                r -= 1;</span><br><span class="line">            &#125;</span><br><span class="line">            if(arr[r] == pivot)&#123;</span><br><span class="line">                l += 1;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(l == r)&#123;</span><br><span class="line">            l += 1;</span><br><span class="line">            r -= 1;</span><br><span class="line">        &#125;</span><br><span class="line">        if(left &lt; r)&#123;</span><br><span class="line">            QuickSort(arr,left,r);</span><br><span class="line">        &#125;</span><br><span class="line">        if(right &gt; l)&#123;</span><br><span class="line">            QuickSort(arr,l,right);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h4><ul>
+<li><p>原理：将每一个元素的个位取出并放入0-9对应的桶中，然后是十位，如果没有的话进行补零操作</p>
+</li>
+<li><p>缺点：不能对负数进行排序，由于有10个桶的原因可能会浪费很多的内存</p>
+</li>
+<li><p>代码</p>
+<p>  <strong>核心代码</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Arrays.toString(arr));</span><br><span class="line"></span><br><span class="line">        for(int i = 0;i &lt; arr.length;i++)&#123;</span><br><span class="line">            int digitalEle = arr[i] / 1 % 10;</span><br><span class="line">            bucket[digitalEle][bucketElement[digitalEle]] = arr[i];</span><br><span class="line">            bucketElement[digitalEle]++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        index = 0;</span><br><span class="line">        for(int i = 0;i &lt; 10;i++)&#123;</span><br><span class="line">            if(bucketElement[i] != 0)&#123;</span><br><span class="line">                for(int l = 0;l &lt; bucketElement[i];l++)&#123;</span><br><span class="line">                    arr[index] = bucket[i][l];</span><br><span class="line">                    index++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            bucketElement[i] = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Arrays.toString(arr));</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>完整代码</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">public static void RadixSort(int[] arr)&#123;</span><br><span class="line">        //寻找最大数</span><br><span class="line">        int max = arr[0];</span><br><span class="line">        for(int i = 1;i &lt;arr.length;i++)&#123;</span><br><span class="line">            if(arr[i] &gt; max)&#123;</span><br><span class="line">                max = arr[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int length = (max + &quot;&quot;).length();</span><br><span class="line"></span><br><span class="line">        //基数排序是通过空间换时间的排序方法</span><br><span class="line">        int[][] bucket = new int[10][arr.length];</span><br><span class="line"></span><br><span class="line">        int[] bucketElement = new int[10];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        for(int h = 0,n = 1;h &lt; length;h++,n *= 10)&#123;</span><br><span class="line">            for(int i = 0;i &lt; arr.length;i++)&#123;</span><br><span class="line">                int digitalEle = arr[i] / n % 10;</span><br><span class="line">                bucket[digitalEle][bucketElement[digitalEle]] = arr[i];</span><br><span class="line">                bucketElement[digitalEle]++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            int index = 0;</span><br><span class="line">            for(int i = 0;i &lt; 10;i++)&#123;</span><br><span class="line">                if(bucketElement[i] != 0)&#123;</span><br><span class="line">                    for(int l = 0;l &lt; bucketElement[i];l++)&#123;</span><br><span class="line">                        arr[index] = bucket[i][l];</span><br><span class="line">                        index++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                bucketElement[i] = 0;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(Arrays.toString(arr));</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p id="3"></p>
+
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h4 id="线性查找"><a href="#线性查找" class="headerlink" title="线性查找"></a>线性查找</h4><ul>
+<li><p>原理：从头到尾逐一进行比对,将查找值对应的下标进行返回</p>
+</li>
+<li><p>代码实现</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static int LineSearch(int[] arr,int value)&#123;</span><br><span class="line">        for(int i = 0;i &lt; arr.length;i++)&#123;</span><br><span class="line">            if(arr[i] == value)&#123;</span><br><span class="line">                return i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h4><ul>
+<li><p>原理：在一个有序数组里面进行查找,定义left和right通过mid值来判断是left移动还是right移动</p>
+</li>
+<li><p>代码实现</p>
+<p>  <strong>二分查找(当出现重复元素时只返回一个下标)</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public static int BinarySearch(int[] arr,int left,int right,int value)&#123;</span><br><span class="line">        //递归的终止条件</span><br><span class="line">        if(left &gt; right) return -1;</span><br><span class="line">        int mid = (left + right) / 2;</span><br><span class="line">        int midValue = arr[mid];</span><br><span class="line">        if(midValue &lt; value) &#123;</span><br><span class="line">            return BinarySearch(arr,mid + 1,right,value);</span><br><span class="line">        &#125;else if(midValue &gt; value) &#123;</span><br><span class="line">            return BinarySearch(arr,left,mid - 1,value);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            return mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>二分查找升级版(将出现元素的所有下标放入到数组中)</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public static List&lt;Integer&gt; BinarySearch2(int[] arr,int left,int right,int value)&#123;</span><br><span class="line">        //递归的终止条件</span><br><span class="line">        if(left &gt; right) return new ArrayList&lt;&gt;();</span><br><span class="line">        int mid = (left + right) / 2;</span><br><span class="line">        int midValue = arr[mid];</span><br><span class="line">        if(midValue &lt; value) &#123;</span><br><span class="line">            return BinarySearch2(arr,mid + 1,right,value);</span><br><span class="line">        &#125;else if(midValue &gt; value) &#123;</span><br><span class="line">            return BinarySearch2(arr,left,mid - 1,value);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">            int temp = mid - 1;</span><br><span class="line">            while(true)&#123;</span><br><span class="line">                if(temp &lt; 0 || arr[temp] != value)&#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                list.add(temp);</span><br><span class="line">                temp -= 1;</span><br><span class="line">            &#125;</span><br><span class="line">            list.add(mid);</span><br><span class="line"></span><br><span class="line">            temp = mid + 1;</span><br><span class="line">            while(true)&#123;</span><br><span class="line">                if(temp &gt;= arr.length || arr[temp] != value)&#123;</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                list.add(temp);</span><br><span class="line">                temp += 1;</span><br><span class="line">            &#125;</span><br><span class="line">            return list;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="插值查找"><a href="#插值查找" class="headerlink" title="插值查找"></a>插值查找</h4><ul>
+<li><p>插值查找什么时候使用合适</p>
+<ul>
+<li>插值查找要求数组有序</li>
+<li>关键字分布比较连续</li>
+</ul>
+</li>
+<li><p>插值查找mid公式</p>
+<blockquote>
+<p>mid &#x3D; (left) + (right - left) * (findVal - arr[left])  &#x2F; arr[right] - arr[left];</p>
+</blockquote>
+</li>
+<li><p>代码实现</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public static int insertSea(int[] arr,int left,int right,int value)&#123;</span><br><span class="line">        System.out.println(&quot;插值查找次数&quot;);</span><br><span class="line">        //判断第一位大于value和最后一位小于value必须有 否则当value值过大或者过小就会出现越界的情况</span><br><span class="line">        if(left &gt; right || arr[0] &gt; value || arr[arr.length - 1] &lt; value)&#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;</span><br><span class="line">        int mid = left + (right - left) * (value - arr[left]) / (arr[right] - arr[left]);</span><br><span class="line">        int midValue = arr[mid];</span><br><span class="line">        if(midValue &lt; value)&#123;</span><br><span class="line">            return insertSea(arr,mid + 1,right,value);</span><br><span class="line">        &#125;else if(midValue &gt; value)&#123;</span><br><span class="line">            return insertSea(arr,left,mid - 1,value);</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            return mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="斐波那契查找"><a href="#斐波那契查找" class="headerlink" title="斐波那契查找"></a>斐波那契查找</h4><ul>
+<li><p>原理：主要是通过黄金分割点来配合斐波那契数列来进行查找的</p>
+</li>
+<li><p>代码</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">public static int maxSize = 20;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int[] arr = &#123;1,2,3,4,5,6,7,8&#125;;</span><br><span class="line">        System.out.println(fibSearch(arr,5));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static int[] fib()&#123;</span><br><span class="line">        int[] f = new int[maxSize];</span><br><span class="line">        f[0] = 1;</span><br><span class="line">        f[1] = 1;</span><br><span class="line">        for(int i = 2;i &lt; maxSize;i++)&#123;</span><br><span class="line">            f[i] = f[i - 1] + f[i - 2];</span><br><span class="line">        &#125;</span><br><span class="line">        return f;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //通过mid = low + F(k - 1) - 1来获取到下标</span><br><span class="line">    public static int fibSearch(int[] arr,int key)&#123;</span><br><span class="line">        int low = 0;</span><br><span class="line">        int high = arr.length - 1;</span><br><span class="line">        int k = 0; //用来斐波那契分割数值的下标</span><br><span class="line">        int mid = 0;</span><br><span class="line">        int[] f = fib(); //获取斐波那契数列</span><br><span class="line">        while(high &gt; f[k] - 1)&#123;</span><br><span class="line">            k++;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        int[] temp = Arrays.copyOf(arr,f[k]);</span><br><span class="line">        for(int i = high + 1;i &lt; temp.length;i++)&#123;</span><br><span class="line">            temp[i] = arr[high];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        while(low &lt;= high)&#123;</span><br><span class="line">            mid = low + f[k - 1] - 1;</span><br><span class="line">            if(key &lt; temp[mid])&#123;</span><br><span class="line">                high = mid - 1;</span><br><span class="line">                k--;</span><br><span class="line">            &#125;else if(key &gt; temp[mid])&#123;</span><br><span class="line">                low = low + 1;</span><br><span class="line">                k -= 2;</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                if(mid &lt;= high)&#123;</span><br><span class="line">                    return mid;</span><br><span class="line">                &#125;else &#123;</span><br><span class="line">                    return high;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return -1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<p id="4"></p>
+
+<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><ul>
+<li><p>简单介绍</p>
+<blockquote>
+<p>哈希表又称散列表，它通过将关键码值映射到表中某一个位置来访问记录，从而达到加快查找数据的目的，底层还是使用链表来实现的</p>
+</blockquote>
+</li>
+<li><p>哈希表达实现</p>
+<ul>
+<li><p>提前准备</p>
+<p>  <strong>定义一个员工</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Emp&#123;</span><br><span class="line">		public int id;</span><br><span class="line">		public String name;</span><br><span class="line">		public Emp next;</span><br><span class="line">		public Emp(int id,String name)&#123;</span><br><span class="line">				this.id = id;</span><br><span class="line">				this.name = name;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>定义一个链表用来串联员工</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line">class EmpLinkedList&#123;</span><br><span class="line">    private Emp head;</span><br><span class="line"></span><br><span class="line">    public void add(Emp emp)&#123;</span><br><span class="line">        if(head == null)&#123;</span><br><span class="line">            head = emp;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        Emp curEmp = head;</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            if(curEmp.next == null)&#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            curEmp = curEmp.next;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        curEmp.next = emp;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void list()&#123;</span><br><span class="line">        if(head == null)&#123;</span><br><span class="line">            System.out.println(&quot;空链表&quot;);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        Emp curEmp = head;</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            System.out.printf(&quot;id = %d name = %s\n&quot;,curEmp.id,curEmp.name);</span><br><span class="line">            if(curEmp.next == null)&#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            curEmp = curEmp.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Emp findById(int id)&#123;</span><br><span class="line"></span><br><span class="line">        if(head == null)&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Emp curEmp = head;</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            if(curEmp.id == id)&#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if(curEmp.next == null)&#123;</span><br><span class="line">                curEmp = null;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            curEmp = curEmp.next;</span><br><span class="line">        &#125;</span><br><span class="line">        return curEmp;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Emp deleteById(int id)&#123;</span><br><span class="line">        if(head == null)&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Emp cur = head;</span><br><span class="line">        Emp pre = head;</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            if(cur.next == null)&#123;</span><br><span class="line">                cur = null;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            if(cur.id == id)&#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            //用pre记录cur变化后前一个节点</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = cur.next;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        if(cur == null)&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        pre.next = cur.next;</span><br><span class="line">        return cur;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>定义一个哈希表用来串联多条链表</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">class Hashtable&#123;</span><br><span class="line">    public int size;</span><br><span class="line">    public EmpLinkedList[] empLinkedLists;</span><br><span class="line"></span><br><span class="line">    public Hashtable(int size) &#123;</span><br><span class="line">        this.size = size;</span><br><span class="line">        this.empLinkedLists = new EmpLinkedList[size];</span><br><span class="line">        for(int i = 0;i &lt; size;i++)&#123;</span><br><span class="line">            empLinkedLists[i] = new EmpLinkedList();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void add(Emp emp)&#123;</span><br><span class="line">        //通过员工的id来确定所在链表的位置</span><br><span class="line">        int id = emp.id;</span><br><span class="line">        int index = Hashfun(id);</span><br><span class="line">        empLinkedLists[index].add(emp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public void list()&#123;</span><br><span class="line">        for(int i = 0;i &lt; size;i++)&#123;</span><br><span class="line">            empLinkedLists[i].list();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public Emp findById(int id) &#123;</span><br><span class="line">        // 先找到该 id 属于那一条链表</span><br><span class="line">        int no = Hashfun(id);</span><br><span class="line">        // 先判断边界</span><br><span class="line">        if (no &gt; size || no &lt; 0) &#123;</span><br><span class="line">            System.out.printf(&quot;id = %d 异常，计算出目标链表为 %d \n&quot;, id, no);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        Emp emp = empLinkedLists[no].findById(id);</span><br><span class="line">        if (emp == null) &#123;</span><br><span class="line">            System.out.printf(&quot;在第 %d 条链表中未找到 id = %d 的雇员 \n&quot;, no, id);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            System.out.printf(&quot;在第 %d 条链表中找到 id = %d 的雇员, name = %s \n&quot;, no, id, emp.name);</span><br><span class="line">        &#125;</span><br><span class="line">        return emp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Emp deleteById(int id) &#123;</span><br><span class="line">        // 先找到该 id 属于那一条链表</span><br><span class="line">        int no = Hashfun(id);</span><br><span class="line">        // 先判断边界</span><br><span class="line">        if (no &gt; size || no &lt; 0) &#123;</span><br><span class="line">            System.out.printf(&quot;id = %d 异常，计算出目标链表为 %d \n&quot;, id, no);</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Emp emp = empLinkedLists[no].deleteById(id);</span><br><span class="line">        if (emp == null) &#123;</span><br><span class="line">            System.out.printf(&quot;在第 %d 条链表中未找到 id = %d 的雇员，删除失败 \n&quot;, no, id);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            System.out.printf(&quot;在第 %d 条链表中找到 id = %d 的雇员, name = %s ,删除成功\n&quot;, no, id, emp.name);</span><br><span class="line">        &#125;</span><br><span class="line">        return emp;</span><br><span class="line">    &#125;</span><br><span class="line">		//通过id来获取处于的链表</span><br><span class="line">    public int Hashfun(int id)&#123;</span><br><span class="line">        return id % size;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p>​	</p>
+<p id="5"></p>
+
+<h2 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h2><h4 id="实现线性表"><a href="#实现线性表" class="headerlink" title="实现线性表"></a>实现线性表</h4><ul>
+<li>构建T类存储元素的数组作为线性表的主体</li>
+<li>实现方法<ul>
+<li>get</li>
+<li>getLength</li>
+<li>Insert &#x2F; InsetIndex</li>
+<li>remove</li>
+<li>clear</li>
+<li>isEmpty</li>
+</ul>
+</li>
+</ul>
+<h4 id="遍历线性表"><a href="#遍历线性表" class="headerlink" title="遍历线性表"></a>遍历线性表</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public Iterator&lt;T&gt; iterator()&#123;</span><br><span class="line">        return new SIterator();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private class SIterator implements Iterator&#123;</span><br><span class="line">        private int cursor;</span><br><span class="line">        public SIterator()&#123;</span><br><span class="line">            this.cursor = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public boolean hasNext() &#123;</span><br><span class="line">            return cursor &lt; N;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public Object next() &#123;</span><br><span class="line">            return eles[cursor++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="对于线性表的容积的改变"><a href="#对于线性表的容积的改变" class="headerlink" title="对于线性表的容积的改变"></a>对于线性表的容积的改变</h4><ul>
+<li><p>扩容</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void resize(int newSize)&#123;</span><br><span class="line">        T[] temp = eles;</span><br><span class="line">        eles = (T[])new Object[newSize];</span><br><span class="line">        for(int i = 0;i &lt; N;i++)&#123;</span><br><span class="line">            eles[i] = temp[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p id="6"></p>
+
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><ul>
+<li><p>构成链表的大体操作</p>
+<ul>
+<li>创建节点</li>
+<li>链接节点</li>
+</ul>
+</li>
+<li><p>单向链表</p>
+<ul>
+<li><p>实现(书写方法)</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>实现原理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>get</td>
+<td>从i开始通过for循环获取item</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>head.next &#x3D; null &amp;&amp; N &#x3D; 0</td>
+</tr>
+<tr>
+<td>isEmpty</td>
+<td>return this.N &#x3D;&#x3D; 0</td>
+</tr>
+<tr>
+<td>Insert</td>
+<td>while(cur.next !&#x3D; null) 遍历完之后向后添加</td>
+</tr>
+<tr>
+<td>insertIndex</td>
+<td>pre遍历到前一个元素，newNode.next &#x3D; pre.next;</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>Pre.next &#x3D; pre.next.next</td>
+</tr>
+<tr>
+<td>indexOf</td>
+<td>for(i &#x3D; 0;n.next !&#x3D; null;i++)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>get,clear,isEmpty,insert,insertInIndex,remove,indexOf</li>
+</ul>
+</li>
+<li><p>实现Iterator接口，方便对元素进行遍历</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public Iterator&lt;T&gt; iterator() &#123;</span><br><span class="line">        return new LIterator();</span><br><span class="line">    &#125;</span><br><span class="line">    //通过重写Iterator来实现遍历的目的</span><br><span class="line">    private class LIterator implements Iterator&#123;</span><br><span class="line">        //定义一个头节点 方便进行遍历</span><br><span class="line">        private Node n;</span><br><span class="line">        public LIterator()&#123;</span><br><span class="line">            this.n = head;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public boolean hasNext() &#123;</span><br><span class="line">            return n.next != null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public T next() &#123;</span><br><span class="line">            n = n.next;</span><br><span class="line">            return n.item;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>双向链表</p>
+<ul>
+<li>在定义节点的时候需要新增一个pre</li>
+</ul>
+</li>
+<li><p>链表的反转</p>
+<ul>
+<li><p>思路</p>
+<p>  <code>将头节点指向尾节点，尾节点依次向前指向</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<p id="7"></p>
+
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p><strong>遵循先进先出的原则</strong></p>
+<ul>
+<li><p>队列初始化</p>
+<ul>
+<li>front 代表队列最前的元素 </li>
+<li>rear代表队列尾部的元素</li>
+<li>通过rear &#x3D;&#x3D; maxSize - 1判断队列是否已经满</li>
+<li>提供数组用来存储数据</li>
+<li>构造方法front rear初始化为-1</li>
+<li>最大容量以及数组的大小都需要外部手动设置</li>
+</ul>
+</li>
+<li><p>部分API实现</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>实现原理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>判断队列是否满</td>
+<td>return maxSize - 1 &#x3D;&#x3D; rear</td>
+</tr>
+<tr>
+<td>判断队列是否为空</td>
+<td>return front &#x3D;&#x3D; rear</td>
+</tr>
+<tr>
+<td>向队列里面添加数据</td>
+<td>需要判断队列是否满arr[++rear] &#x3D; n;</td>
+</tr>
+<tr>
+<td>获取队列的数据</td>
+<td>需要判断队列是否为空arr[++front];</td>
+</tr>
+<tr>
+<td>显示队列的所有数据</td>
+<td>需要判断队列是否为空遍历数组进行打印</td>
+</tr>
+<tr>
+<td>显示队列的头数据</td>
+<td>需要判断队列是否为空return arr[front + 1];</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>缺点</p>
+<blockquote>
+<p>队列rear到头就结束了，无法去使用前面已经空的队列单元</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="队列的改进"><a href="#队列的改进" class="headerlink" title="队列的改进"></a>队列的改进</h4><ul>
+<li><p>初始化条件变化</p>
+<ul>
+<li>front 和 rear 初始值为0</li>
+<li>front指向第一个元素</li>
+<li>rear指向队列的倒数第二个位置</li>
+<li>此时队列满的条件发生了变化为(rear + 1) % maxSize &#x3D;&#x3D; front</li>
+<li>空的条件还是一样的</li>
+<li>队列中有效数据的个数为(rear + maxSize - front ) % maxSize</li>
+</ul>
+</li>
+<li><p>代码实现</p>
+<table>
+<thead>
+<tr>
+<th>改动的方法</th>
+<th>改动</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>向队列里面添加数据</td>
+<td>rear向后移动需要取模</td>
+</tr>
+<tr>
+<td>从队列里拿出数据</td>
+<td>int value &#x3D; arr[front] front &#x3D; (front + 1) % maxSize;  return value;</td>
+</tr>
+<tr>
+<td>展示队列里的所有数据</td>
+<td>for(int i &#x3D; front;i &lt; front + maxSize)  sout(i % maxSize)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p id="8"></p>
+
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p><strong>遵循先进后出的原理</strong> </p>
+<ul>
+<li><p>数组模拟栈初始化步骤</p>
+<ul>
+<li>需要一个栈顶，初始化为-1</li>
+<li>栈的大小</li>
+<li>模拟一个数组栈</li>
+<li>书写一个构造方法指定数组的长度和栈的的大小</li>
+</ul>
+</li>
+<li><p>基本方法实现</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>实现代码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>isFull</td>
+<td>return top &#x3D;&#x3D; maxSize - 1</td>
+</tr>
+<tr>
+<td>isEmpty</td>
+<td>return top &#x3D;&#x3D; -1</td>
+</tr>
+<tr>
+<td>Push</td>
+<td>if(isFull) return; stack[top++] &#x3D; value</td>
+</tr>
+<tr>
+<td>Pop</td>
+<td>if(isEmpty) thorw new error; int value &#x3D; stack[top] top–; return value</td>
+</tr>
+<tr>
+<td>list</td>
+<td>if(isEmpty) return; for(int i &#x3D; top;j &gt;&#x3D; 0;j–){System.out.printf(“stack[%d]&#x3D;%d\n”),i,stack[i]};</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>栈模拟计算器</p>
+<ul>
+<li><p>数栈</p>
+<blockquote>
+<p>如果遍历到的是数字直接入数栈</p>
+</blockquote>
+</li>
+<li><p>符号栈</p>
+<ul>
+<li>如果符号栈内没有内容直接入栈</li>
+<li>否则的话比较符号的优先级，如果当前的操作符的优先级大的话就直接入符号栈，否则pop出两个数进行运算</li>
+</ul>
+</li>
+<li><p>main方法书写</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">String expression = &quot;1 + 3 * 2&quot;;</span><br><span class="line">ArrayStack numStack = new ArrayStack(10);</span><br><span class="line">ArrayStack operStack = new ArrayStack(10);</span><br><span class="line">int index = 0;</span><br><span class="line">int num1 = 0;</span><br><span class="line">int num2 = 0;</span><br><span class="line">int res = 0;</span><br><span class="line">char ch = &#x27; &#x27;;</span><br><span class="line">String keetNum = &quot;&quot;;</span><br><span class="line">while(true)&#123;</span><br><span class="line">		ch = express.charAt(index++);</span><br><span class="line">		if(operStack.isOper(ch))&#123;</span><br><span class="line">			if(!operStack.isEmpty)&#123;</span><br><span class="line">				if(operStack.properties(ch) &lt;= operStack.properties(operStack.peek()))&#123;</span><br><span class="line">						num1 = numStack.pop();</span><br><span class="line">						num2 = numStack.pop();</span><br><span class="line">						oper = operStack.pop();</span><br><span class="line">						res = numStack.cal(num1,num2,oper);</span><br><span class="line">						numStack.push(res);</span><br><span class="line">						operStack.push(ch);</span><br><span class="line">				&#125;else &#123;</span><br><span class="line">					operStack.push(ch);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;else &#123;</span><br><span class="line">					operStack.push(ch);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;else &#123;</span><br><span class="line">				//这里面push的数字都是有对应的ASCII值的</span><br><span class="line">				//如果是多位数进行运算的话结果就会出现问题</span><br><span class="line">				numStack.push(ch - 48);</span><br><span class="line">				</span><br><span class="line">				//通过字符拼接的方式可以解决</span><br><span class="line">				keepNum += ch;</span><br><span class="line">				if(index == expression.length() - 1)&#123;</span><br><span class="line">						numStack.push(Integer.parseInt(keepNum));</span><br><span class="line">				&#125;else &#123;</span><br><span class="line">					if(operStack.isOper(expression.charAt(index + 1)))&#123;</span><br><span class="line">							numStack.push(Integer.parseInt(keepNum));</span><br><span class="line">							keepNum = &quot;&quot;;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				</span><br><span class="line">		&#125;</span><br><span class="line">		index++;</span><br><span class="line">		if(index == expression.length())&#123;</span><br><span class="line">				break;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//开始进行真正的运算</span><br><span class="line">while(true)&#123;</span><br><span class="line">	if(operStack.isEmpty())&#123;</span><br><span class="line">			break;</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">			num1 = numStack.pop();</span><br><span class="line">			num2 = numStack.pop();</span><br><span class="line">			oper = operStack.pop();</span><br><span class="line">			res = numStack.cal(num1,num2,oper);</span><br><span class="line">			numStack.push(res);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>栈的三种表达式</p>
+<ul>
+<li><p>前缀表达式(波兰表达式)</p>
+<blockquote>
+<p>从右向左扫描，先将数扫描扫描到符号后弹出两个数进行运算</p>
+</blockquote>
+</li>
+<li><p>中缀表达式</p>
+<blockquote>
+<p>最常见的表达式</p>
+</blockquote>
+</li>
+<li><p>后缀表达式(逆波兰表达式)</p>
+<blockquote>
+<p>先读取两个数然后读取符号，进行运算，拿着这个运算后的数再读取下一个数，下一个符号，进行运算…..</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>逆波兰表达式模拟计算器</p>
+<ul>
+<li>将字符串中的每一个数据放入到ArrayList中</li>
+<li>遍历ArrayList集合，如果是多位数的话直接将其入栈否则的话pop出两个数进行一系列的运算，将计算后的结果入栈</li>
+<li>最后将pop出最终的结果</li>
+</ul>
+</li>
+<li><p>中缀表达式转后缀表达式</p>
+<ul>
+<li><p>大体思路</p>
+<ul>
+<li>ex:  2 + ((2 + 3) * 5) - 5 &#x3D;&gt; 2 2 3 + 5 * + 5 -</li>
+<li>初始化两个栈：符号栈喝存储中间结果的栈</li>
+<li>遍历中缀表达式，当遇到运算符的时候比较优先级</li>
+<li>如果符号栈为空或者栈顶运算符为( 直接压入栈</li>
+<li>如果优先级比较高，直接压入栈</li>
+<li>否则的话将s1栈顶的运算符压入s2栈顶 </li>
+<li>。。。。。</li>
+</ul>
+</li>
+<li><p>代码实现</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">//将后缀表达式的每一项存放到list当中</span><br><span class="line">List&lt;String&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">String str = &quot;&quot;;</span><br><span class="line">do&#123;	</span><br><span class="line">		//说明是非数字</span><br><span class="line">		if((c = s.charAt(i)) &gt; 57 || (c = s.charAt(i)) &lt; 48)&#123;</span><br><span class="line">				list.add(&quot; &quot; + s.charAt(i));</span><br><span class="line">				i++;</span><br><span class="line">		&#125;else &#123;</span><br><span class="line">				//如果是一个数的话</span><br><span class="line">				while(i &lt; s.length() &amp;&amp; (c = s.charAt(i)) &lt;= 57 || (c = s.charAt(i)) &gt;= 48)&#123;</span><br><span class="line">						str += s.charAt(i); //进行多位数的拼接</span><br><span class="line">						i++;</span><br><span class="line">				&#125;</span><br><span class="line">				list.add(str);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;while(i &lt; s.length())</span><br><span class="line">return ls;</span><br><span class="line"></span><br><span class="line">//将后缀表达式的List转化为中缀表达式List</span><br><span class="line">Stack s1 = new Stack&lt;&gt;();</span><br><span class="line">List&lt;String&gt; s2 = new ArrayList&lt;&gt;();</span><br><span class="line">for(int item : ss)&#123;</span><br><span class="line">		if(item.match(&quot;\\d+&quot;))&#123;</span><br><span class="line">				s2.add(item);</span><br><span class="line">		&#125;else if(item.equals(&#x27;(&#x27;)&#123;</span><br><span class="line">				s1.push(item)</span><br><span class="line">		&#125;else if(item.equals(&#x27;)&#x27;))&#123;</span><br><span class="line">				//如果遇到了右括号一次将符号栈内的符号pop直到遇到了(</span><br><span class="line">				while(!s1.peek().equals(&#x27;(&#x27;))&#123;</span><br><span class="line">						s2.add(s1.pop());</span><br><span class="line">				&#125;</span><br><span class="line">				//消除(括号</span><br><span class="line">				s1.pop();</span><br><span class="line">		&#125;else &#123;</span><br><span class="line">				//判断优先级</span><br><span class="line">				while(s1.size() != 0 &amp;&amp; Operation.getValue(s1.peek() &gt;= Operation.getValue(item)))&#123;</span><br><span class="line">						//如果item的优先级小于栈顶的优先级的话直接栈顶放入s2</span><br><span class="line">						s2.push(s1.pop());</span><br><span class="line">				&#125;</span><br><span class="line">				//将最后那个符号放入到符号栈中</span><br><span class="line">				s1.push(item);</span><br><span class="line">		&#125;</span><br><span class="line">		while(s1.size() != 0)&#123;</span><br><span class="line">				//将s1中的剩余符号压入s2中</span><br><span class="line">				s2.add(s1.pop());</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line">//判断符号优先级</span><br><span class="line">Class Operation&#123;</span><br><span class="line">		private static int ADD = 1;</span><br><span class="line">		private static int SUB = 1;</span><br><span class="line">		private static int DIV = 2;</span><br><span class="line">		private static int MUL = 2;</span><br><span class="line">		</span><br><span class="line">		public static int getValue(String oper)&#123;</span><br><span class="line">				int res = 0;</span><br><span class="line">				switch&#123;</span><br><span class="line">					&#x27;+&#x27;</span><br><span class="line">					&#x27;-&#x27;,</span><br><span class="line">					&#x27;*&#x27;,</span><br><span class="line">					&#x27;/&#x27;</span><br><span class="line">				&#125;</span><br><span class="line">				return res;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p id="8"></p>
+
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><ul>
+<li><p>递归调用规则</p>
+<ul>
+<li>当程序调用一个方法的时候就会在栈内开辟一段独立的空间</li>
+<li>递归必须逐渐与递归结束的条件逼近，否则就会出现栈溢出</li>
+</ul>
+</li>
+<li><p>应用场景</p>
+<ul>
+<li>汉诺塔</li>
+<li>迷宫</li>
+<li>快排</li>
+<li>八皇后</li>
+</ul>
+</li>
+<li><p>迷宫回溯代码实现</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">        //构建一个87的迷宫</span><br><span class="line">        int[][] map = new int[8][7];</span><br><span class="line">        for(int i = 0;i &lt; 8;i++)&#123;</span><br><span class="line">            map[i][0] = 1;</span><br><span class="line">            map[i][6] = 1;</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 0;i &lt; 7;i++)&#123;</span><br><span class="line">            map[0][i] = 1;</span><br><span class="line">            map[7][i] = 1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        map[3][1] = 1;</span><br><span class="line">        map[3][2] = 1;</span><br><span class="line">//        map[1][2] = 1;</span><br><span class="line">//        map[2][2] = 1;</span><br><span class="line"></span><br><span class="line">        for(int i = 0;i &lt; map.length;i++)&#123;</span><br><span class="line">            for(int j = 0;j &lt; map[i].length;j++)&#123;</span><br><span class="line">                System.out.print(map[i][j] + &quot; &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        setWay(map,1,1);</span><br><span class="line">        System.out.println(&quot;新构建出来的地图&quot;);</span><br><span class="line">        //输入新的地图</span><br><span class="line">        for(int i = 0;i &lt; map.length;i++)&#123;</span><br><span class="line">            for(int j = 0;j &lt; map[i].length;j++)&#123;</span><br><span class="line">                System.out.print(map[i][j] + &quot; &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean setWay(int[][] map,int i,int j)&#123;</span><br><span class="line">        /*</span><br><span class="line">        0点代表没有走过 1代表墙 2代表通路可以走 3代表死路</span><br><span class="line">         */</span><br><span class="line">        if(map[6][5] == 2)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            if(map[i][j] == 0)&#123;</span><br><span class="line">                map[i][j] = 2;</span><br><span class="line">                if(setWay(map,i - 1,j))&#123;</span><br><span class="line">                    //向下走</span><br><span class="line">                    return true;</span><br><span class="line">                &#125;else if(setWay(map,i,j + 1))&#123;</span><br><span class="line">                    return true;</span><br><span class="line">                    //向右走</span><br><span class="line">                &#125;else if(setWay(map,i + 1,j))&#123;</span><br><span class="line">                    //向上走</span><br><span class="line">                    return true;</span><br><span class="line">                &#125;else if(setWay(map,i,j - 1))&#123;</span><br><span class="line">                    //向左走</span><br><span class="line">                    return true;</span><br><span class="line">                &#125;else &#123;</span><br><span class="line">                    //死路</span><br><span class="line">                    map[i][j] = 3;</span><br><span class="line">                    return false;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果想要求出最短路径需要分别统计上右下左，上左下右，下左上右，下右上左四种长度</p>
+</blockquote>
+</li>
+<li><p>八皇后问题</p>
+<ul>
+<li><p>实现思路</p>
+<ul>
+<li>将第一个皇后放在第一行的第一个位置</li>
+<li>第二个皇后放在第二行的第一个位置，如果不合适放到第二行的指定位置，后面都以此类推</li>
+<li>当得到一组正确答案后开始将第一个皇后后移，其他的放到合适的位置从而达到多组解</li>
+</ul>
+</li>
+<li><p>代码实现</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">public class Queue8 &#123;</span><br><span class="line">    //定义有多少个皇后</span><br><span class="line">    int max = 8;</span><br><span class="line">    //数组用来存放皇后放置的位置</span><br><span class="line">    int[] arr = new int[max];</span><br><span class="line">    static int count = 0;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Queue8 q = new Queue8();</span><br><span class="line">        q.check(0);</span><br><span class="line">        System.out.println(count);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    //编写一个方法用来放置皇后</span><br><span class="line">    private void check(int n)&#123;</span><br><span class="line">        if(n == 8)&#123;</span><br><span class="line">            print();</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 0;i &lt; max;i++)&#123;</span><br><span class="line">            arr[n] = i;</span><br><span class="line"></span><br><span class="line">            if(judge(n))&#123;</span><br><span class="line">                //如果不冲突 往下一个行的第一列开始</span><br><span class="line">                check(n + 1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //用来判断皇后放置的位置是否与前面的位置冲突</span><br><span class="line">    private boolean judge(int n)&#123;</span><br><span class="line">        for(int i = 0;i &lt; n;i++)&#123;</span><br><span class="line">            //如果放入皇后的位置和前面放置皇后的列和对角线一样的话</span><br><span class="line">            //对角线的原理</span><br><span class="line">            if(arr[i] == arr[n] || Math.abs(i - n) == Math.abs(arr[i] - arr[n]))&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void print()&#123;</span><br><span class="line">        count++;</span><br><span class="line">        for(int i = 0;i &lt; arr.length;i++)&#123;</span><br><span class="line">            System.out.print(arr[i] + &quot; &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<p id="9"></p>
+
+<h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><h4 id="为什么要引入树的概念"><a href="#为什么要引入树的概念" class="headerlink" title="为什么要引入树的概念"></a>为什么要引入树的概念</h4><blockquote>
+<p>树也是用来存储数据的，在之前我们通过数组来存储数据，但是由于数组的增删效率比较低，于是我们又引入了链表，但是查找起来效率又比较低，于是树就诞生了</p>
+</blockquote>
+<h4 id="常用术语"><a href="#常用术语" class="headerlink" title="常用术语"></a>常用术语</h4><ul>
+<li><p>节点</p>
+</li>
+<li><p>根结点</p>
+</li>
+<li><p>父节点</p>
+</li>
+<li><p>子节点</p>
+</li>
+<li><p>叶子节点</p>
+<blockquote>
+<p>没有子节点的节点</p>
+</blockquote>
+</li>
+<li><p>节点的权</p>
+<blockquote>
+<p>节点的值</p>
+</blockquote>
+</li>
+<li><p>节点的路径</p>
+<blockquote>
+<p>从root几点开始找到该节点的路线</p>
+</blockquote>
+</li>
+<li><p>层</p>
+<blockquote>
+<p>root算第一层，依次向下递增</p>
+</blockquote>
+</li>
+<li><p>二叉树</p>
+<blockquote>
+<p>最多只有两个子节点</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="前序查找"><a href="#前序查找" class="headerlink" title="前序查找"></a>前序查找</h4><ul>
+<li>先判断当前节点是否是要查找的</li>
+<li>如果不是的话再去查找左节点，如果左节点是空的话就通过递归前序查找接着查</li>
+<li>左边查完没有的话再去查找右边</li>
+<li>如果查找到了直接将值进行返回</li>
+</ul>
+<h4 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h4><ul>
+<li>判断当前节点是否要查找的需要写在左查找完事之后</li>
+</ul>
+<h4 id="后续遍历"><a href="#后续遍历" class="headerlink" title="后续遍历"></a>后续遍历</h4><ul>
+<li>判断当前节点是否要查找的需要写在左右查找完事之后</li>
+</ul>
+<h4 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h4><ul>
+<li>大体思路<ul>
+<li>删除节点需要判断当前节点的子节点点是否是要删除的</li>
+<li>如果子节点不为空，那么就是删除该节点，如果不为空的话接着向下进行递归</li>
+<li>右子节点也是同理</li>
+<li>如果上述步骤没有删除节点的话，需要向左子树进行递归删除</li>
+<li>如果还是没有再向右子树进行递归删除</li>
+</ul>
+</li>
+</ul>
+<h4 id="顺序存储二叉树"><a href="#顺序存储二叉树" class="headerlink" title="顺序存储二叉树"></a>顺序存储二叉树</h4><ul>
+<li><p>二叉树的存储特点</p>
+<p>  <code>第n个元素的左子节点为2 * n + 1</code></p>
+<p>  <code>第n个元素的右子节点为2 * n + 2</code></p>
+<p>  <code>第n个元素的父节点为(n - 1) / 2</code></p>
+</li>
+<li><p>顺序二叉树代码实现</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">class ArrayBinaryTree&#123;</span><br><span class="line">    private int[] arr;</span><br><span class="line">    public ArrayBinaryTree(int[] arr)&#123;</span><br><span class="line">        this.arr = arr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public void preOrdered()&#123;</span><br><span class="line">        this.preOrdered(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void midOrdered()&#123;</span><br><span class="line">        this.midOrdered(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void lastOrdered()&#123;</span><br><span class="line">        this.lastOrdered(0);</span><br><span class="line">    &#125;</span><br><span class="line">		//前序遍历</span><br><span class="line">    public void preOrdered(int index)&#123;</span><br><span class="line">        if(arr == null || arr.length == 0)&#123;</span><br><span class="line">            System.out.println(&quot;数组为空，无法进行遍历&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(arr[index]);</span><br><span class="line">        //向左进行递归</span><br><span class="line">        if((index * 2 + 1) &lt; arr.length)&#123;</span><br><span class="line">            preOrdered(2 * index + 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if((index * 2 + 2) &lt; arr.length)&#123;</span><br><span class="line">            preOrdered(2 * index + 2);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">		//中序遍历</span><br><span class="line">    public void midOrdered(int index)&#123;</span><br><span class="line">        if(arr == null || arr.length == 0) return;</span><br><span class="line"></span><br><span class="line">        if((index * 2 + 1) &lt; arr.length)&#123;</span><br><span class="line">            midOrdered(index * 2 + 1);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(arr[index]);</span><br><span class="line"></span><br><span class="line">        if((index * 2 + 1) &lt; arr.length)&#123;</span><br><span class="line">            midOrdered(index * 2 + 2);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">		//后序遍历</span><br><span class="line">    public void lastOrdered(int index)&#123;</span><br><span class="line">        if(arr == null || arr.length == 0) return;</span><br><span class="line">        if(index * 2 + 1 &lt; arr.length)&#123;</span><br><span class="line">            lastOrdered(index * 2 + 1);</span><br><span class="line">        &#125;</span><br><span class="line">        if(index * 2 + 2 &lt; arr.length)&#123;</span><br><span class="line">            lastOrdered(index * 2 + 2);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(arr[index]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li></li>
+</ul>
+<h4 id="线索化二叉树"><a href="#线索化二叉树" class="headerlink" title="线索化二叉树"></a>线索化二叉树</h4><ul>
+<li><p>基本介绍</p>
+<blockquote>
+<p>n个节点的二叉树链表中含有n + 1 个空指针域,公式为2n - (n - 1) &#x3D; n + 1,存在指向该节点在某种遍历次序下的前驱和后继节点的指针，这种指针称为线索</p>
+</blockquote>
+</li>
+</ul>
+<p>​	<code>在这里，left和right分别包含两种情况指向左子树，右子树或者是前驱节点和后继节点</code></p>
+<ul>
+<li><p>代码实现</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public void threadTree(HeroNode node)&#123;</span><br><span class="line">        if(node == null) return;</span><br><span class="line">        //先对左子树进行线索化</span><br><span class="line">        threadTree(node.getLeft());</span><br><span class="line">        //线索化当前节点</span><br><span class="line">        //线索化前驱</span><br><span class="line">        if(node.getLeft() == null)&#123;</span><br><span class="line">            node.setLeft(pre);</span><br><span class="line">            node.setLeftType(1);</span><br><span class="line">        &#125;</span><br><span class="line">				//线索化后继</span><br><span class="line">        if(pre != null &amp;&amp; node.getRight() == null)&#123;</span><br><span class="line">            pre.setRight(node);</span><br><span class="line">            pre.setRightType(1);</span><br><span class="line">        &#125;</span><br><span class="line">        pre = node;</span><br><span class="line"></span><br><span class="line">        //再线索化右子树</span><br><span class="line">        threadTree(node.getRight());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>遍历线索化二叉树</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public void threadList()&#123;</span><br><span class="line">        //从root节点开始进行遍历</span><br><span class="line">        HeroNode node = root;</span><br><span class="line">//        去查找leftType = 1的节点也就是前驱节点</span><br><span class="line">        while(node != null)&#123;</span><br><span class="line">            while(node.getLeftType() == 0)&#123;</span><br><span class="line">                node = node.getLeft();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(node);</span><br><span class="line">            while(node.getRightType() == 1)&#123;</span><br><span class="line">                node = node.getRight();</span><br><span class="line">                System.out.println(node);</span><br><span class="line">            &#125;</span><br><span class="line">            node = node.getRight();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h4><ul>
+<li><p>简单介绍 </p>
+<blockquote>
+<p>堆排序是选择排序，不稳定，时间复杂度是O(nlogn), 每个节点的值都大于等于左右孩子的值称为大顶堆，每个孩子的值都小于等于左右孩子的值称为小顶堆</p>
+</blockquote>
+</li>
+<li><p>大体思想</p>
+<ol>
+<li>将待排序序列构建成一个大顶堆，此时最大值就是根结点</li>
+<li>将其与末尾元素进行交换，此时末尾就是最大值</li>
+<li>然后将剩余的元素重新构建成一个堆，接着上述操作就会得到一个有序的序列了</li>
+</ol>
+</li>
+<li><p>代码实现(升序排序)</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">public static void heapSort(int[] arr)&#123;</span><br><span class="line">        int temp = 0;</span><br><span class="line">        //对第一个非叶子节点进行调整</span><br><span class="line">        //adjustHeap(arr,1,arr.length);</span><br><span class="line">        //对第二个非叶子点进行调整</span><br><span class="line">        //adjustHeap(arr,0, arr.length);</span><br><span class="line"></span><br><span class="line">        //1.通过非叶子节点对数组进行调整</span><br><span class="line">        for(int i = arr.length / 2 - 1;i &gt;= 0;i--)&#123;</span><br><span class="line">            adjustHeap(arr,i,arr.length);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(Arrays.toString(arr));</span><br><span class="line"></span><br><span class="line">        //2.使最大元素沉底</span><br><span class="line">        for(int j = arr.length - 1;j &gt; 0;j--)&#123;</span><br><span class="line">            temp = arr[j];</span><br><span class="line">            arr[j] = arr[0];</span><br><span class="line">            arr[0] = temp;</span><br><span class="line">            adjustHeap(arr,0,j);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(Arrays.toString(arr));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void adjustHeap(int[] arr,int i,int length)&#123;</span><br><span class="line">        //保留最初始的值，因为后面要不断的对arr[i]进行修改</span><br><span class="line">        int temp = arr[i];</span><br><span class="line">        for(int k = i * 2 + 1;k &lt; length;k = k * 2 + 1)&#123;</span><br><span class="line">            if(k + 1 &lt; length &amp;&amp; arr[k] &lt; arr[k + 1])&#123;</span><br><span class="line">                //让k指向右子节点</span><br><span class="line">                k++;</span><br><span class="line">            &#125;</span><br><span class="line">            if(arr[k] &gt; temp)&#123;</span><br><span class="line">                //将大值赋值给非叶子节点</span><br><span class="line">                arr[i] = arr[k];</span><br><span class="line">                //将i指向k接着向下进行该操作</span><br><span class="line">                i = k;</span><br><span class="line">            &#125;else &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        arr[i] = temp;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h4 id="哈夫曼树"><a href="#哈夫曼树" class="headerlink" title="哈夫曼树"></a>哈夫曼树</h4><ul>
+<li><p>概念</p>
+<p>  ​	路径的基本概念： 从根结点出发到达孩子或者是孙子节点的通路叫做路径，路径的公式是L - 1</p>
+<p>  ​	带权路径的长度(WPL)计算公式: 叶子节点的权 * 路径</p>
+<p>  ​	<code>带权路径长度最小的值就是哈夫曼树</code></p>
+</li>
+<li><p>构建哈夫曼树</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public static Node createHuffmanTree(int[] arr)&#123;</span><br><span class="line">        //1. 将数组中的每一个元素放入到集合当中</span><br><span class="line">        List&lt;Node&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        for(int val : arr)&#123;</span><br><span class="line">            list.add(new Node(val));</span><br><span class="line">        &#125;</span><br><span class="line">        while(list.size() != 1)&#123;</span><br><span class="line">            //对集合进行排序</span><br><span class="line">            Collections.sort(list);</span><br><span class="line"></span><br><span class="line">            //取出两个权值最小的子节点</span><br><span class="line">            Node node1 = list.get(0);</span><br><span class="line">            Node node2 = list.get(1);</span><br><span class="line">            //计算两个树的和并且将两个子节点挂在到他两边</span><br><span class="line">            Node parent = new Node(node1.val + node2.val);</span><br><span class="line">            parent.left = node1;</span><br><span class="line">            parent.right = node2;</span><br><span class="line"></span><br><span class="line">            list.remove(node1);</span><br><span class="line">            list.remove(node2);</span><br><span class="line"></span><br><span class="line">            list.add(parent);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        return list.get(0);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    //最终返回到是哈夫曼树的根结点，通过这个根结点进行前序遍历</span><br><span class="line">    </span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="哈夫曼编码"><a href="#哈夫曼编码" class="headerlink" title="哈夫曼编码"></a>哈夫曼编码</h4><ul>
+<li><p>通信编码发展史</p>
+<ul>
+<li>通过ASCII码值值转二进制来解决，但是二进制码长度过大，不方便解析</li>
+<li>变长编码： 1 : a 01 : b这种方式但是可能会出现解析重码的可能，信息解析错误</li>
+<li>哈夫曼编码</li>
+</ul>
+</li>
+<li><p>原理图</p>
+<p>  <img src="/Users/satrol_/Desktop/NotepadImg/%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="哈夫曼编码"></p>
+</li>
+<li><p>思路分析</p>
+<ul>
+<li>Node {data(存放数据) ，wieght(存放出现的个数) , left , right}</li>
+<li>得到字符对应的byte数组</li>
+<li>将数据以及个数一块放入到List数组中</li>
+<li>通过List创建哈夫曼树</li>
+</ul>
+</li>
+</ul>
+</div></article><div id="base-discus"></div></div></div><footer class="base-footer"><div class="footer-wrapper"><span>Satrol_ Using </span><a target="_blank" rel="noopener" href="https://github.com/chuguixin/Simple"><span>Simple</span></a><span> Presents For You.</span></div></footer><div class="dom-ready">
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script src="/js/base.js"></script>
+</div></body></html>
