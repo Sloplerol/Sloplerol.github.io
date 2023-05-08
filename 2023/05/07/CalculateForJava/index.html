@@ -1,4 +1,167 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>CalculateForJava | Freedom Coding</title><meta name="description" content="CalculateForJava - Satrol_"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/theme.css"><link rel="search" type="application/opensearchdescription+xml" href="/atom.xml" title="Freedom Coding"><link rel="stylesheet" href="/css/font-awesome.min.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div class="wrap"><header><h1 class="branding"><a href="/" title="Freedom Coding"><img class="logo-image" src="/favicon.ico" alt="logo"></a></h1><ul class="nav nav-list"><li class="nav-list-item"><!--a.nav-list-link(class={active: act} href=url_for(value), target=tar)--><a class="nav-list-link" href="/" target="_self">首页</a></li><li class="nav-list-item"><!--a.nav-list-link(class={active: act} href=url_for(value), target=tar)--><a class="nav-list-link" href="/archives" target="_self">归档</a></li><li class="nav-list-item"><!--a.nav-list-link(class={active: act} href=url_for(value), target=tar)--><a class="nav-list-link" href="/tags" target="_self">标签</a></li><li class="nav-list-item"><!--a.nav-list-link(class={active: act} href=url_for(value), target=tar)--><a class="nav-list-link" href="/about" target="_self">关于</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">CalculateForJava</h1><p class="post-info"><i class="fa fa-calendar">&nbsp;</i>2023-05-07&nbsp;| <i class="fa fa-tags">&nbsp;</i><a class="post-category-link" target="_blank" rel="noopener" href="https://github.com/wwwuxt">coder</a>&nbsp;| <i class="fa fa-folder-o">&nbsp;</i><a class="post-category-link" target="_blank" rel="noopener" href="http://wwwuxt.cc">Full Stand developer</a></p><div class="post-content"><center><font face="宋体" color=lightgreen size=6>~Java数据结构与算法～</font></center>
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CalculateForJava | Freedom Coding</title><meta name="author" content="Satrol_"><meta name="copyright" content="Satrol_"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="~Java数据结构与算法～   目录  时间复杂度  排序  查找  哈希表  线性表  链表  队列  栈  递归  树     时间复杂度 算法函数的常数可以忽略  算法函数幂指数前的常数项可以进行忽略  幂越小说明耗费的时间越少      常见的时间复杂度  以下的时间复杂度逐渐变大   O(1)   1只要没有循环时间复杂度就是O(1)  O(log2n)   1234while(i &amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CalculateForJava">
+<meta property="og:url" content="https://sloplerol.github.io/2023/05/07/CalculateForJava/index.html">
+<meta property="og:site_name" content="Freedom Coding">
+<meta property="og:description" content="~Java数据结构与算法～   目录  时间复杂度  排序  查找  哈希表  线性表  链表  队列  栈  递归  树     时间复杂度 算法函数的常数可以忽略  算法函数幂指数前的常数项可以进行忽略  幂越小说明耗费的时间越少      常见的时间复杂度  以下的时间复杂度逐渐变大   O(1)   1只要没有循环时间复杂度就是O(1)  O(log2n)   1234while(i &amp;l">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-05-07T07:32:24.000Z">
+<meta property="article:modified_time" content="2023-05-08T10:50:57.922Z">
+<meta property="article:author" content="Satrol_">
+<meta property="article:tag" content="depict code">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://sloplerol.github.io/2023/05/07/CalculateForJava/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CalculateForJava',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-08 18:50:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Freedom Coding"><span class="site-name">Freedom Coding</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CalculateForJava</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-05-07T07:32:24.000Z" title="Created 2023-05-07 15:32:24">2023-05-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-05-08T10:50:57.922Z" title="Updated 2023-05-08 18:50:57">2023-05-08</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CalculateForJava"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><center><font face="宋体" color=lightgreen size=6>~Java数据结构与算法～</font></center>
 
 <hr>
 <p><font size = 3 color = orange>目录</font></p>
@@ -710,66 +873,4 @@
 <li></li>
 <li></li>
 </ul>
-</div></article></div><div class="article"><hr><h2>版权声明</h2>| 文章作者：<a target="_blank" rel="noopener" href="http://wwwuxt.cc">wwwuxt</a><br>| 文章链接：<a href="https://sloplerol.github.io/2023/05/07/CalculateForJava/">https://sloplerol.github.io/2023/05/07/CalculateForJava/</a><br>| 许可协议：<a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a><hr></div></main><footer><div class="paginator"><a class="prev" href="/2023/05/07/LeetCode_Note/"><!--!= __('< PREV_POST')-->< LeetCode_Note</a><a class="next" href="/2023/05/07/Linux-Journey/"><!--!= __('NEXT_POST >')-->Linux_Journey ></a></div><div class="clearfix"></div><div class="copyright"><p id="host_by"> <a href="/atom.xml"><i class="fa fa-rss"></i></a><span id="busuanzi_container_site_pv">&nbsp;<i class="fa fa-eye">&nbsp;</i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner"></i></span> times, </span><span id="busanzi_container_site_uv">&nbsp;<i class="fa fa-user">&nbsp;</i><span id="busuanzi_value_site_uv"><i class="fa fa-spinner"></i></span> times.</span><br> &copy; 2017 - 2023 <a target="_blank" rel="noopener" href="http://wwwuxt.cc">wwwuxt</a>. 
- Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/wwwuxt/hexo-theme-artemisX" target="_blank">ArtemisX</a>.<br></p><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></footer></div><script>var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-108353521-1']);
-_gaq.push(['_trackPageview']);
-
-(function () {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-console.log('Google Analytics')
-</script><script>(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https'){
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else{
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-    console.log('wwwuxt.cc')
-})();
-</script><script>(function(){
-    var req = GetXmlHttpObject()  
-    if (req == null) {  
-        console.log("not support AJAX!");  
-        return;  
-    }
-    req.onreadystatechange = function() {  
-        if (req.readyState === 4 && req.status === 200) {  
-            var deploy_server = req.getResponseHeader("Server");
-            console.log(deploy_server)
-            if(deploy_server === 'Coding Pages'){
-                document.getElementById('host_by').innerHTML+='Hosted by <a target="_blank" rel="noopener" href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>.'
-            }
-            else if(deploy_server === 'GitHub.com'){
-                document.getElementById('host_by').innerHTML+='Hosted by <a target="_blank" rel="noopener" href="https://pages.github.com" style="font-weight: bold">GitHub Pages</a>.'
-            }
-            else{
-                document.getElementById('host_by').innerHTML+='Hosted by <a href="#" style="font-weight: bold">'+ deploy_server + '</a>.'
-            }
-        }  
-    };  
-    req.open('GET', document.location, true);
-    req.send(null);
-})();
-function GetXmlHttpObject() {  
-    var xmlHttp = null;  
-    try {  
-        // Firefox, Opera 8.0+, Safari  
-        xmlHttp = new XMLHttpRequest();  
-    } catch (e) {  
-        // Internet Explorer  
-        try {  
-            xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");  
-        } catch (e) {  
-            xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");  
-        }  
-    }  
-    return xmlHttp;  
-}  </script></body></html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://sloplerol.github.io">Satrol_</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://sloplerol.github.io/2023/05/07/CalculateForJava/">https://sloplerol.github.io/2023/05/07/CalculateForJava/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/05/07/LeetCode_Note/" title="LeetCode_Note"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">LeetCode_Note</div></div></a></div><div class="next-post pull-right"><a href="/2023/05/07/Linux-Journey/" title="Linux_Journey"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Linux_Journey</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Satrol_</div><div class="author-info__description">Self website inner routine Coding error and daily life</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">时间复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">排序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-number">2.0.1.</span> <span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="toc-number">2.0.2.</span> <span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-number">2.0.3.</span> <span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F"><span class="toc-number">2.0.4.</span> <span class="toc-text">希尔排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-number">2.0.5.</span> <span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">2.0.6.</span> <span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F"><span class="toc-number">2.0.7.</span> <span class="toc-text">基数排序</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE"><span class="toc-number">3.</span> <span class="toc-text">查找</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%9F%A5%E6%89%BE"><span class="toc-number">3.0.1.</span> <span class="toc-text">线性查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="toc-number">3.0.2.</span> <span class="toc-text">二分查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%80%BC%E6%9F%A5%E6%89%BE"><span class="toc-number">3.0.3.</span> <span class="toc-text">插值查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%9F%A5%E6%89%BE"><span class="toc-number">3.0.4.</span> <span class="toc-text">斐波那契查找</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-number">4.</span> <span class="toc-text">哈希表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8"><span class="toc-number">5.</span> <span class="toc-text">线性表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E8%A1%A8"><span class="toc-number">5.0.1.</span> <span class="toc-text">实现线性表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E7%BA%BF%E6%80%A7%E8%A1%A8"><span class="toc-number">5.0.2.</span> <span class="toc-text">遍历线性表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8E%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%AE%B9%E7%A7%AF%E7%9A%84%E6%94%B9%E5%8F%98"><span class="toc-number">5.0.3.</span> <span class="toc-text">对于线性表的容积的改变</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-number">6.</span> <span class="toc-text">链表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%9F%E5%88%97"><span class="toc-number">7.</span> <span class="toc-text">队列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%9F%E5%88%97%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">7.0.1.</span> <span class="toc-text">队列的改进</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%88"><span class="toc-number">8.</span> <span class="toc-text">栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92"><span class="toc-number">9.</span> <span class="toc-text">递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91"><span class="toc-number">10.</span> <span class="toc-text">树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%95%E5%85%A5%E6%A0%91%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">10.0.1.</span> <span class="toc-text">为什么要引入树的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%9C%AF%E8%AF%AD"><span class="toc-number">10.0.2.</span> <span class="toc-text">常用术语</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E5%BA%8F%E6%9F%A5%E6%89%BE"><span class="toc-number">10.0.3.</span> <span class="toc-text">前序查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-number">10.0.4.</span> <span class="toc-text">中序遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E9%81%8D%E5%8E%86"><span class="toc-number">10.0.5.</span> <span class="toc-text">后续遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9"><span class="toc-number">10.0.6.</span> <span class="toc-text">删除节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-number">10.0.7.</span> <span class="toc-text">顺序存储二叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E7%B4%A2%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-number">10.0.8.</span> <span class="toc-text">线索化二叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A0%86%E6%8E%92%E5%BA%8F"><span class="toc-number">10.0.9.</span> <span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91"><span class="toc-number">10.0.10.</span> <span class="toc-text">哈夫曼树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81"><span class="toc-number">10.0.11.</span> <span class="toc-text">哈夫曼编码</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/07/LeetCode_Note/" title="LeetCode_Note">LeetCode_Note</a><time datetime="2023-05-07T13:06:30.000Z" title="Created 2023-05-07 21:06:30">2023-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/07/CalculateForJava/" title="CalculateForJava">CalculateForJava</a><time datetime="2023-05-07T07:32:24.000Z" title="Created 2023-05-07 15:32:24">2023-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/07/Linux-Journey/" title="Linux_Journey">Linux_Journey</a><time datetime="2023-05-07T06:55:03.000Z" title="Created 2023-05-07 14:55:03">2023-05-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Satrol_</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
