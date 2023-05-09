@@ -1,0 +1,1662 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>NodeJS 笔记 | Freedom Coding</title><meta name="author" content="Satrol_"><meta name="copyright" content="Satrol_"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Node.js,web包管理,mysql数据的基本使用前言想看视频的自行进行观看: 视频入口  运行环境   浏览器(前端开发)   内置DOM和BOM和AJAX API 通过js代码操控API 再通过内置v8解析引擎(chrome) 解析js代码    API 只能在运行环境中进行调用      Node.js(后端开发)  概念:Nodejs是基于v8引擎的js运行环境   解析流程和前端相似">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NodeJS 笔记">
+<meta property="og:url" content="https://sloplerol.github.io/2022/12/05/Nodejs/index.html">
+<meta property="og:site_name" content="Freedom Coding">
+<meta property="og:description" content="Node.js,web包管理,mysql数据的基本使用前言想看视频的自行进行观看: 视频入口  运行环境   浏览器(前端开发)   内置DOM和BOM和AJAX API 通过js代码操控API 再通过内置v8解析引擎(chrome) 解析js代码    API 只能在运行环境中进行调用      Node.js(后端开发)  概念:Nodejs是基于v8引擎的js运行环境   解析流程和前端相似">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/109008086?v=4">
+<meta property="article:published_time" content="2022-12-05T01:15:01.464Z">
+<meta property="article:modified_time" content="2023-05-09T12:16:32.348Z">
+<meta property="article:author" content="Satrol_">
+<meta property="article:tag" content="depict code">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://avatars.githubusercontent.com/u/109008086?v=4"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://sloplerol.github.io/2022/12/05/Nodejs/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: 'days',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"Author: Satrol_","link":"Link: ","source":"Source: Freedom Coding","info":"Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source."}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'NodeJS 笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isToc: true,
+  postUpdate: '2023-05-09 20:16:32'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/109008086?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w.wallhaven.cc/full/2y/wallhaven-2ydy76.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Freedom Coding"><span class="site-name">Freedom Coding</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">NodeJS 笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-12-05T01:15:01.464Z" title="Created 2022-12-05 09:15:01">2022-12-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-05-09T12:16:32.348Z" title="Updated 2023-05-09 20:16:32">2023-05-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="NodeJS 笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Node-js-web包管理-mysql数据的基本使用"><a href="#Node-js-web包管理-mysql数据的基本使用" class="headerlink" title="Node.js,web包管理,mysql数据的基本使用"></a>Node.js,web包管理,mysql数据的基本使用</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>想看视频的自行进行观看: <a href="'https://www.bilibili.com/video/BV1a34y167AZ?p=1&vd_source=e9bfdb3098ad69cc5bdc6786ce0ecb4c'">视频入口</a></p>
+<blockquote>
+<p>运行环境</p>
+</blockquote>
+<ul>
+<li><p>浏览器(前端开发)</p>
+<ul>
+<li><blockquote>
+<p>内置DOM和BOM和AJAX API 通过js代码操控API 再通过内置v8解析引擎(chrome) 解析js代码  </p>
+<blockquote>
+<p>API 只能在运行环境中进行调用</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>Node.js(后端开发)</p>
+<ul>
+<li><p>概念:Nodejs是基于v8引擎的js运行环境</p>
+<blockquote>
+<p> 解析流程和前端相似 也是js代码操控后端API v8引擎解析js代码</p>
+<blockquote>
+<p>Nodejs不能使用DOM和BOM API</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>Node.js的使用</p>
+<ul>
+<li>官方下载 terminal查看node版本 <ul>
+<li>node -v</li>
+</ul>
+</li>
+<li>如何在node js环境下执行js代码<ul>
+<li>cd到js代码当前到目录下</li>
+<li>node 当前js文件 ex:node hello.c</li>
+<li>快捷键<ol>
+<li>上箭头 快速粘贴上一次node代码</li>
+<li>tab键 当node的文件名很长的话 采取方法:node 该文件首字母,再按下tab键就能实现自动补齐文本名的作用</li>
+<li>清除当前已输入的node命令<ul>
+<li>Mac：esc加回车全部清除</li>
+<li>Window esc</li>
+</ul>
+</li>
+<li>清空终端屏幕<ul>
+<li>Mac: Ctrl+Cmd+L（清除屏幕） ，Cmd+K（清除到开头），Clear ，Ctrl+L </li>
+<li>window: cls</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>fs文件系统模块(Node.js官方提供)</p>
+<blockquote>
+<p>引入fs模块方法 <code>const fs = require(&#39;fs&#39;);</code></p>
+</blockquote>
+<ul>
+<li><p>读取文件方法 fs.readfile()</p>
+<blockquote>
+<p>读取文件格式: fs.readfile(path,[option],callback) []代表可选参数</p>
+<blockquote>
+<p>Path: 读取文件路径     option:可选项代表以什么编码格式进行读取默认情况下为utf-8     callback:回调函数通过回调函数拿到读取的结果 callback参数一定要先搞清楚顺序不要写反造成意外结果</p>
+</blockquote>
+</blockquote>
+<p>  <strong>代码如下</strong> </p>
+<ol>
+<li><p>成功读取文件的结果 </p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. fs.readFile(&#x27;./file/hello.txt&#x27;,&#x27;utf-8&#x27;,function(*err*,*dataStr*)&#123;</span><br><span class="line"></span><br><span class="line">​    console.log(*err*); //失败返回的结果 如果读取成功err返回的值是null</span><br><span class="line"></span><br><span class="line">​    console.log(*dataStr*); //成功返回的结果 hello world</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>失败读取文件的结果 </p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">fs.readFile(&#x27;./file/hello1.txt&#x27;,&#x27;utf-8&#x27;,function(*err*,*dataStr*)&#123;</span><br><span class="line"></span><br><span class="line">   console.log(*err*); //Error:</span><br><span class="line"></span><br><span class="line">   console.log(*dataStr*); //undefined</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>通过以上两点可以通过err结果判断是否读取成与败</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">fs.readFile(&#x27;./file/hello1.txt&#x27;,&#x27;utf-8&#x27;,function(*err*,*dataStr*)&#123;</span><br><span class="line"></span><br><span class="line">    if (*err*) &#123;</span><br><span class="line">        return console.log(&#x27;文件读入失败，文件的输出结果是&#x27;+*err*.message);</span><br><span class="line">    &#125;</span><br><span class="line">    return console.log(&#x27;文件读取成功，文件的输出结果是&#x27;+ *dataStr*);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>写入文件方法 fs.writefile()</p>
+<blockquote>
+<p>写入文件格式: fs.readfile(path,data,[option],callback)</p>
+<blockquote>
+<p>Path: 路径       data:写入内容       option:以什么编码格式写入       callback:回调函数</p>
+</blockquote>
+</blockquote>
+<p>  <strong>代码如下</strong></p>
+<p>  1.成功写入文件 </p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">fs.writeFile(&#x27;./file/hello2.txt&#x27;,&#x27;made in heaven&#x27;,function(*err*)&#123;</span><br><span class="line"></span><br><span class="line">    console.log(*err*); //返回结果为null并且会新创建一个hello2文件</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>  2.失败写入文件 </p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">fs.writeFile(&#x27;../file/hello2.txt&#x27;,&#x27;made in heaven&#x27;,function(*err*)&#123;</span><br><span class="line"></span><br><span class="line">    console.log(*err*); //Error抛出错误对象</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>  3.和写入数据同理通过err返回是否为null判断是否写入成功</p>
+<p>  const fs &#x3D; require(‘fs’);</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fs.writeFile(&#x27;../file/hello2.txt&#x27;,&#x27;made in heaven&#x27;,function(*err*)&#123;</span><br><span class="line"></span><br><span class="line">​    if (*err*) &#123;</span><br><span class="line"></span><br><span class="line">​        return console.log(&#x27;写入成功&#x27;);</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">​    return console.log(&#x27;写入失败&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>录取成绩案例巩固 将hello3.txt文件内容抽取出来并以换行的格式呈现并写入一个空文档中</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=10 b=20 c=30</span><br><span class="line"></span><br><span class="line">const fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">fs.readFile(&#x27;./file/hello3.txt&#x27;,&#x27;utf-8&#x27;,function(*err*,*dataStr*)&#123;</span><br><span class="line"></span><br><span class="line">​    if (*err*) &#123;</span><br><span class="line"></span><br><span class="line">​        return console.log(&#x27;读取失败&#x27;);</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">​    const preres = *dataStr*.split(&#x27; &#x27;);</span><br><span class="line"></span><br><span class="line">​    const nowres = [];</span><br><span class="line"></span><br><span class="line">​    preres.forEach((*items*)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">​        nowres.push(*items*.replace(&#x27;=&#x27;,&#x27;:&#x27;));</span><br><span class="line"></span><br><span class="line">​    &#125;)</span><br><span class="line"></span><br><span class="line">​    const newres = nowres.join(&#x27;\n&#x27;);</span><br><span class="line"></span><br><span class="line">​    fs.writeFile(&#x27;./file/hello4.txt&#x27;,newres,function(*err*)&#123;</span><br><span class="line"></span><br><span class="line">​        if (*err*) &#123;</span><br><span class="line"></span><br><span class="line">​            return console.log(&#x27;写入失败&#x27;);</span><br><span class="line"></span><br><span class="line">​        &#125;</span><br><span class="line"></span><br><span class="line">​        console.log(&#x27;成绩写入成功&#x27;);</span><br><span class="line"></span><br><span class="line">​    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>路径动态拼接问题(.&#x2F;  ..&#x2F;)</p>
+</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">fs.readFile(&#x27;./file/hello.txt&#x27;,function(*err*,*dataStr*)&#123;</span><br><span class="line"></span><br><span class="line">​    if(*err*) &#123;</span><br><span class="line"></span><br><span class="line">​        return console.log(&#x27;error&#x27;);</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">​    console.log(&#x27;success&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>问题出错源</p>
+<ul>
+<li>正常来说你需要cd到当前目录 读取数据也是在当前目录(content)下的.&#x2F;file&#x2F;hello.txt也就是路径拼接</li>
+<li>如果返回到上一级目录 你想要读取hello.txt 那么你可能会写node .&#x2F;content&#x2F;file&#x2F;hello.txt 这时就会报错</li>
+<li>因为node会以你当前目录去拼接读取的相对文件路径也就是    .&#x2F;当前目录&#x2F;file&#x2F;hello.txt</li>
+</ul>
+</li>
+<li><p>如何解决</p>
+<ul>
+<li><p>归根到底还是出在了你书写js代码是设置的相对路径 如果你想要解决将js代码里的路径改为绝对路径即可 vscode可以直接复制你想要的绝对路径</p>
+</li>
+<li><p>缺点: 移植性性差 不利于后期维护 也就是当你更改当前文件目录后期可能读取不到该文件</p>
+</li>
+<li><p>如果想要根治需要使用__dirname获取当前文件所处的目录不包含该文件</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">fs.readFile(__dirname+&#x27;/file/hello.txt&#x27;,function(*err*,*dataStr*)&#123;</span><br><span class="line"></span><br><span class="line">​    if (*err*) &#123;</span><br><span class="line"></span><br><span class="line">​        return console.log(&#x27;读取失败&#x27;);</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">​    console.log(&#x27;读取成功&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>见如上代码 __dirname已经将当前目录锁定为file的上一级目录,只需要你node到file的上一级目录就可以</p>
+</li>
+<li><p>总结:在没有dirname时路径为动态的      而当你设置__dirname将目标路径定死</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>path路径模块</p>
+<blockquote>
+<p>引入path模块 const path &#x3D; require(‘path’);</p>
+</blockquote>
+<ul>
+<li><p>拼接路径片段 path.join(‘ ‘)</p>
+<ul>
+<li><p>在拼接路径片段的时候..&#x2F;有抵消上一级路径的效果</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Ex: const path = require(&#x27;path&#x27;);</span><br><span class="line"></span><br><span class="line">const result = path.join(&#x27;/a&#x27;,&#x27;/b&#x27;,&#x27;/c/d&#x27;,&#x27;../&#x27;,&#x27;f&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(result); //返回结果为/a/b/c/f</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>建议以后对路径进行拼接时不要去使用 +    看着比较不美观也会出现一些问题</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">const path = require(&#x27;path&#x27;);</span><br><span class="line"></span><br><span class="line">fs.readFile(path.join(__dirname,&#x27;/file/hello.txt&#x27;),function(*err*,*dataStr*)&#123;</span><br><span class="line"></span><br><span class="line">​    if (*err*) &#123;</span><br><span class="line"></span><br><span class="line">​        return console.log(&#x27;读取失败&#x27;);</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">​    console.log(&#x27;读取成功&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>问题出错点</p>
+<blockquote>
+<p>如果用的是刚才的加号 后面拼接的路径改为.&#x2F;file.hello.txt 会报错因为如果加了点相当于在__dirname固定住的路径后面加上一个点再加上后面拼接的路径肯定出问题 而path模块完美的避免了该问题</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>获取路径中部分的文件名 path.basename(‘ ‘)</p>
+<ul>
+<li><p>代码示范</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">当basename参数为1个的话</span><br><span class="line"></span><br><span class="line">const path = require(&#x27;path&#x27;);</span><br><span class="line"></span><br><span class="line">const lastpath = path.basename(&#x27;a/b/c/index.html&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(lastpath); </span><br><span class="line"></span><br><span class="line">//返回结果为index.html</span><br><span class="line"></span><br><span class="line">当basename参数为两个的时候</span><br><span class="line"></span><br><span class="line">const delpath = path.basename(&#x27;a/b/c/index.html&#x27;,&#x27;.html&#x27;);</span><br><span class="line"></span><br><span class="line">console.log(delpath); </span><br><span class="line"></span><br><span class="line">//返回结果为index     也就是第二个参数决定你要删除最后一个路径的哪个字母    后期主要是用来删除扩展名</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>获取文件扩展名 path.extname(‘ ‘)</p>
+<ul>
+<li><p>代码示范</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const path = require(&#x27;path&#x27;);</span><br><span class="line"></span><br><span class="line">const npath = &#x27;/a/b/c/index.html&#x27;;</span><br><span class="line"></span><br><span class="line">const houzhui = path.extname(npath);</span><br><span class="line"></span><br><span class="line">console.log(houzhui); </span><br><span class="line"></span><br><span class="line">//返回值为.html</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>利用正则表达式将html页面的js和css标签元素进行分离,并将html的css部分和js部分替换为外链的形式写入html最后分离出三个有联系的html css 和js文件</p>
+<ul>
+<li><p>首先我们需要将js css正则匹配文件写好  代码如下</p>
+<blockquote>
+<p>const regCSS &#x3D; &#x2F;<style>[\s\S]*&lt;/style&gt;&#x2F;;</p>
+<p>const regJS &#x3D; &#x2F;<script>[\s\S]*</script>/;</p>
+</blockquote>
+</li>
+<li><p>读取代码成功将其写入代码</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fs.readFile(path.join(__dirname,&#x27;index.html&#x27;),function(*err*,*dataStr*)&#123;</span><br><span class="line"></span><br><span class="line">​    if(*err*) &#123;</span><br><span class="line"></span><br><span class="line">​        return console.log(&#x27;读取失败&#x27;);</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">​    *// 当读取成功可以解析html  css js代码*</span><br><span class="line"></span><br><span class="line">​    resolveCSS(*dataStr*);</span><br><span class="line"></span><br><span class="line">​    resolveJS(*dataStr*);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>resolvecss部分   正则表达式exec目的是去匹配datastr里的元素  如果匹配失败,exec()方法返回null 完全匹配成功的文本将作为返回数组的第一项 <a href="'https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec'">详见</a></p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function resolveCSS(*htmlStr*)&#123;</span><br><span class="line"></span><br><span class="line">​    *// 使用正则表达式把dataStr里的元素以数组的形式进行存储 style部分为首位*</span><br><span class="line"></span><br><span class="line">​    const r1 = regCSS.exec(*htmlStr*);</span><br><span class="line"></span><br><span class="line">​    *// 将css部分的style标签去掉*</span><br><span class="line"></span><br><span class="line">​    const newstyle = r1[0].replace(&#x27;&lt;style&gt;&#x27;,&#x27;&#x27;).replace(&#x27;&lt;/style&gt;&#x27;,&#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">​    *// console.log(newstyle);*</span><br><span class="line"></span><br><span class="line">​    fs.writeFile(path.join(__dirname,&#x27;./file/index.css&#x27;),newstyle,function(*err*)&#123;</span><br><span class="line"></span><br><span class="line">​        if (*err*) &#123;</span><br><span class="line"></span><br><span class="line">​            console.log(&#x27;写入失败&#x27;);</span><br><span class="line"></span><br><span class="line">​        &#125;</span><br><span class="line"></span><br><span class="line">​        console.log(&#x27;css写入成功&#x27;);</span><br><span class="line"></span><br><span class="line">​    &#125;)</span><br><span class="line"></span><br><span class="line">​    </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>resolvejs部分</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function resolveJS(*htmlStr*) &#123;</span><br><span class="line"></span><br><span class="line">​    *// 此时js部分为首位,因为regJS就是先匹配script标签在去生成其他元素*</span><br><span class="line"></span><br><span class="line">​    const j1 = regJS.exec(*htmlStr*);</span><br><span class="line"></span><br><span class="line">​    *// console.log(j1);*</span><br><span class="line"></span><br><span class="line">​    const newjs = j1[0].replace(&#x27;&lt;script&gt;&#x27;,&#x27;&#x27;).replace(&#x27;&lt;/script&gt;&#x27;,&#x27;&#x27;);</span><br><span class="line"></span><br><span class="line">​    fs.writeFile(path.join(__dirname,&#x27;./file/index.js&#x27;),newjs,function(*err*)&#123;</span><br><span class="line"></span><br><span class="line">​        if (*err*) &#123;</span><br><span class="line"></span><br><span class="line">​            console.log(&#x27;写入失败&#x27;);</span><br><span class="line"></span><br><span class="line">​        &#125;</span><br><span class="line"></span><br><span class="line">​        console.log(&#x27;js写入成功&#x27;);</span><br><span class="line"></span><br><span class="line">​    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>resolvehtml部分</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function resolveHTML(*htmlStr*) &#123;</span><br><span class="line"></span><br><span class="line">​    const newhtml = *htmlStr*.replace(regCSS,&#x27;&lt;link rel=&quot;stylesheet&quot; href=&quot;./index1.css&quot;&gt;&#x27;).replace(regJS,&#x27;&lt;script src=&quot;./index1.js&quot;&gt;&lt;/script&gt;&#x27;);</span><br><span class="line"></span><br><span class="line">​    fs.writeFile(path.join(__dirname,&#x27;./file/index1.html&#x27;),newhtml,function(*err*)&#123;</span><br><span class="line"></span><br><span class="line">​        if (*err*) &#123;</span><br><span class="line"></span><br><span class="line">​            return console.log(&#x27;写入失败&#x27;);</span><br><span class="line"></span><br><span class="line">​        &#125;</span><br><span class="line"></span><br><span class="line">​        console.log(&#x27;html写入成功&#x27;);</span><br><span class="line"></span><br><span class="line">​    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>总结</p>
+<ul>
+<li>fs.writeFIle不会创建文件夹</li>
+<li>当重写writeFile里的内容时新内容会覆盖旧的内容</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>http模块(直接在vscode里启动终端好方便操作)</p>
+<blockquote>
+<p>引入http模块  const http = require('http');</p>
+</blockquote>
+<ul>
+<li><p>概念</p>
+<ul>
+<li><p>客户端服务端的概念</p>
+<ul>
+<li>客户端: 负责消费资源的电脑</li>
+<li>服务端: 负责对外提供网络资源</li>
+</ul>
+</li>
+<li><p>http带来的好处</p>
+<ul>
+<li><p>http模块是用来创建web服务器</p>
+</li>
+<li><p>服务器和普通电脑的区别: 服务器上安装了提供web服务的一些软件</p>
+</li>
+<li><p>Node.js提供http模块可以通过代码实现一个服务器软件</p>
+</li>
+</ul>
+</li>
+<li><p>IP地址</p>
+<ul>
+<li>ip地址相当于家庭住址 别人通过这个ip来访问到你</li>
+<li>每一个网页都有自己的ip地址   我们可以终端ping这个网页的地址 通过ip来访问</li>
+<li>当你想访问在客户端开启的web服务 可以通过访问127.0.0.1给个人使用</li>
+</ul>
+</li>
+<li><p>域名和域名服务器</p>
+<ul>
+<li><p>域名:  因为ip地址难记 用域名辅助访问        127.0.0.1的域名是localhost</p>
+</li>
+<li><p>域名服务器(DNS):  ip和域名是对应的关系 这种关系存放到的服务器就是域名服务器</p>
+<blockquote>
+<p>域名服务器就是提供ip和域名互相转化的服务器</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>端口号</p>
+<ul>
+<li>一个服务器包含无数个web服务   一个web服务对应一个端口号</li>
+<li>用户发送请求通过端口号准确定位到对应的web服务</li>
+<li>URL上的80端口号可以被省略</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>创建web服务器</p>
+<ul>
+<li><p>导入http模块</p>
+<p>  <code>const http = require(&#39;http&#39;);</code></p>
+</li>
+<li><p>创建web服务器实例化对象</p>
+<p>  <code>const server = http.createServer();</code></p>
+</li>
+<li><p>绑定request事件</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server.on(&#x27;request&#x27;,(*req*,*res*)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">​    *// 监听客户端需求*</span><br><span class="line"></span><br><span class="line">​    *// 当你做出请求时就会触发request事件事件 执行回调函数*</span><br><span class="line"></span><br><span class="line">​    console.log(&#x27;welcome to my personal server&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动服务器</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server.listen(8000,()=&gt;&#123;</span><br><span class="line"></span><br><span class="line">​    *// 当启动服务器后立刻执行回调函数*</span><br><span class="line"></span><br><span class="line">​    console.log(&#x27;8000端口已启动&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>req请求对象 (因为没有服务端做出响应所以请求失败)</p>
+<ul>
+<li>包含的是与客户端相关的数据与属性</li>
+<li>方法<ul>
+<li>req.url    客户端请求的url:返回的值是请求端口号后面的url地址</li>
+<li>req.method    客户端请求url的方法get还是post等等  默认情况下都是get请求</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>res响应对象</p>
+<ul>
+<li><p>包含的是与服务端相关的数据与属性</p>
+</li>
+<li><p>方法</p>
+<ul>
+<li><p>res.end()      向客户端响应指定内容并终止本次请求的全过程  往当前url里添加参数页面返回的结果也一样</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">server.on(&#x27;request&#x27;,(*req*,*res*)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">​        *res*.end(&#x27;hello neighbour&#x27;);  // 如果你输入的是中文会出现乱码的情况</span><br><span class="line"></span><br><span class="line">​		//调用res.setHeader()方法 设置响应头来解决乱码问题</span><br><span class="line"></span><br><span class="line">​		    *res*.setHeader(&#x27;Content-Type&#x27;,&#x27;text/html;charset=utf-8&#x27;)     //text/html和charset间是引号</span><br><span class="line"></span><br><span class="line">​		//Content-Type是规定编码类型    charset设置编码类型</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>不同url响应不同页面练习</p>
+<ul>
+<li><p>案例核心url后加index.html访问主页nav.html访问导航栏</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const http = require(&#x27;http&#x27;);</span><br><span class="line"></span><br><span class="line">const server = http.createServer();</span><br><span class="line"></span><br><span class="line">server.on(&#x27;request&#x27;,(*req*,*res*)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">​    const url = *req*.url;</span><br><span class="line"></span><br><span class="line">​	let content = &#x27;&lt;h2&gt;404NOFOUND&lt;/h2&gt;&#x27;;   //在没有找到与之匹配的页面时返回该结果</span><br><span class="line"></span><br><span class="line">​    if (url===&#x27;/&#x27; || url===&#x27;/index.html&#x27;) &#123;</span><br><span class="line"></span><br><span class="line">​        content = &#x27;&lt;h2&gt;首页&lt;/h2&gt;&#x27;;</span><br><span class="line"></span><br><span class="line">​    &#125;else if (url===&#x27;/nav.html&#x27;) &#123;</span><br><span class="line"></span><br><span class="line">​        content = &#x27;&lt;h2&gt;导航栏&lt;/h2&gt;&#x27;;</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br><span class="line"></span><br><span class="line">​    *res*.setHeader(&#x27;Content-Type&#x27;,&#x27;text/html;charset=utf-8&#x27;);</span><br><span class="line"></span><br><span class="line">​    *res*.end(content);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">server.listen(80,()=&gt;&#123;</span><br><span class="line"></span><br><span class="line">​    console.log(&#x27;服务已启动&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>时钟web服务器案例</p>
+<ul>
+<li><p>核心思路 将文件的存放路径作为url请求地址    前提:想要访问当前根目录下文件夹里的文件</p>
+</li>
+<li><p>代码如下</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const http = require(&#x27;http&#x27;);</span><br><span class="line"></span><br><span class="line">const fs = require(&#x27;fs&#x27;);</span><br><span class="line"></span><br><span class="line">const path = require(&#x27;path&#x27;);</span><br><span class="line"></span><br><span class="line">const server = http.createServer();</span><br><span class="line"></span><br><span class="line">server.on(&#x27;request&#x27;,(*req*,*res*)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">​    const url = *req*.url;</span><br><span class="line"></span><br><span class="line">​    const nurl = path.join(__dirname,url);   //将根目录和请求的url参数进行拼接(核心步骤)</span><br><span class="line"></span><br><span class="line">​    res*.setHeader(&#x27;Content-Type&#x27;,&#x27;text/html;charset=utf-8&#x27;); //设置响应头解决乱码问题</span><br><span class="line"></span><br><span class="line">​    fs.readFile(nurl,&#x27;utf-8&#x27;,function(*err*,*dataStr*)&#123;</span><br><span class="line"></span><br><span class="line">​        if(*err*) &#123;</span><br><span class="line"></span><br><span class="line">​            return *res*.end(&#x27;启动失败&#x27;);</span><br><span class="line"></span><br><span class="line">​        &#125;</span><br><span class="line"></span><br><span class="line">​        *res*.end(*dataStr*);</span><br><span class="line"></span><br><span class="line">​    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">server.listen(80,()=&gt;&#123;</span><br><span class="line"></span><br><span class="line">​    console.log(&#x27;启动成功&#x27;);</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果想要优化请求路径</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let nurl = &#x27;&#x27;;  //设置一个空的待会要返回的路径</span><br><span class="line"></span><br><span class="line">​    const url = *req*.url; </span><br><span class="line"></span><br><span class="line">​    if (url===&#x27;/&#x27;) &#123;</span><br><span class="line"></span><br><span class="line">​        nurl = path.join(__dirname,&#x27;./clock/index1.html&#x27;); 当没有输入url参数的时候默认情况下已经读取html文件</span><br><span class="line"></span><br><span class="line">​    &#125;else &#123;</span><br><span class="line"></span><br><span class="line">​        nurl = path.join(__dirname,&#x27;./clock&#x27;,url);     当输入参数默认情况下已经添加了/clock路径</span><br><span class="line"></span><br><span class="line">​    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>模块化</p>
+<ul>
+<li><p>概念: 将一个大文件拆分为多个独立并相互依赖小文件</p>
+<ul>
+<li>好处<ul>
+<li>提高代码的复用性</li>
+<li>提高代码的可维护性</li>
+<li>可以实现按需加载</li>
+</ul>
+</li>
+<li>模块化规范<ul>
+<li>遵循规则一致</li>
+<li>方便各个模块之间相互调用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Nodejs模块化</p>
+<ul>
+<li><p>内置模块: nodejs自带的模块</p>
+<blockquote>
+<p>ex : fs   http    path</p>
+</blockquote>
+</li>
+<li><p>自定义模块: 自己写的js代码</p>
+<blockquote>
+<p>const m1 = require('./custom.js');   //加载custom.js自定义模块的同时并执行里面的内容  custom有无后缀名都可以,node会帮你补充js后缀</p>
+</blockquote>
+</li>
+<li><p>第三方模块: 需要第三方下载</p>
+</li>
+</ul>
+</li>
+<li><p>模块作用域</p>
+<ul>
+<li><p>概念: 在模块内定义的成员无法被外界访问到</p>
+<blockquote>
+<p>const m1 = require('./custom');</p>
+<p>console.log(m1);</p>
+</blockquote>
+<p>  如上代码打印出来的m1是一个空对象 是因为有模块作用域的存在 而不是custom没有内容</p>
+<blockquote>
+<p> 好处: 避免了全局作用域污染的问题</p>
+</blockquote>
+</li>
+<li><p>module对象</p>
+<ul>
+<li><p>打印module代码如下 存储了当前和当前模块有关的信息 </p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Module &#123;</span><br><span class="line">  id: &#x27;.&#x27;,</span><br><span class="line">  path: &#x27;/Users/satrol_/JS chapter/Nodejs&#x27;,</span><br><span class="line">  exports: &#123;&#125;,  //可以通过export属性来实现共享模块作用域</span><br><span class="line">  filename: &#x27;/Users/satrol_/JS chapter/Nodejs/module共享模块作用域.js&#x27;,</span><br><span class="line">  loaded: false,</span><br><span class="line">  children: [],</span><br><span class="line">  paths: [</span><br><span class="line">    &#x27;/Users/satrol_/JS chapter/Nodejs/node_modules&#x27;,</span><br><span class="line">    &#x27;/Users/satrol_/JS chapter/node_modules&#x27;,</span><br><span class="line">    &#x27;/Users/satrol_/node_modules&#x27;,</span><br><span class="line">    &#x27;/Users/node_modules&#x27;,</span><br><span class="line">    &#x27;/node_modules&#x27;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>module.exports()向外界共享的内部对象就是 require当前自定义模块得到的结果</p>
+<ul>
+<li><p>代码示范   分别向空对象内添加username和fn属性</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">* module.exports.username = &#x27;gbl&#x27;;</span><br><span class="line"></span><br><span class="line">    module.exports.fn = function()&#123;</span><br><span class="line"></span><br><span class="line">    ​    console.log(&#x27;hello world&#x27;);</span><br><span class="line"></span><br><span class="line">    &#125;`</span><br><span class="line"></span><br><span class="line">    打印结果为`&#123; username: &#x27;gbl&#x27;, fn: [Function (anonymous)] &#125;`</span><br><span class="line"></span><br><span class="line">* 注意点 require导入的结果永远都以module.export指向的对象为主</span><br><span class="line"></span><br><span class="line">    * 代码示范 在刚才导入的属性的基础上创建了一个新对象      并将module.export指向了该新对象</span><br><span class="line"></span><br><span class="line">    `module.exports.username = &#x27;gbl&#x27;;</span><br><span class="line"></span><br><span class="line">    module.exports.fn = function()&#123;</span><br><span class="line"></span><br><span class="line">    ​    console.log(&#x27;hello world&#x27;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    module.exports = &#123;</span><br><span class="line"></span><br><span class="line">    ​    username: &#x27;abcde&#x27;,</span><br><span class="line"></span><br><span class="line">    ​    fn()&#123;</span><br><span class="line"></span><br><span class="line">    ​        console.log(&#x27;我是新对象&#x27;);</span><br><span class="line"></span><br><span class="line">    ​    &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>exports和module.exports指向的是同一个对象 exports是简化版</p>
+<blockquote>
+<p>但是最终共享的结果都是以module.exports所指的对象共享</p>
+</blockquote>
+<p>  <em>将上面的module.exports修改成exports打印的结果一样</em></p>
+</li>
+<li><p>使用误区</p>
+<ul>
+<li><p>当同时存在export和module.export时得到的永远都是以module.export指向的对象为主  <strong>前提是其中一个创建了一个新对象</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports.username = &#x27;me&#x27;;</span><br><span class="line"></span><br><span class="line">module.exports.age = 18;</span><br><span class="line"></span><br><span class="line">exports = &#123;</span><br><span class="line"></span><br><span class="line">​    rname: &#x27;you&#x27;,</span><br><span class="line"></span><br><span class="line">​    age:20</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  得到的结果为{username: 'me',age: 18};</p>
+</li>
+<li><p>当没有以上前提的情况下且属性值不发生冲突则最终两个都指向</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports.age = 14;</span><br><span class="line"></span><br><span class="line">exports.rname = &#x27;abcd&#x27;;`</span><br></pre></td></tr></table></figure>
+
+<p>  输出结果为{age:  14,rname:  'abcd'}</p>
+</li>
+<li><p>将其中一个的指向赋值给另一个</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">exports = &#123;</span><br><span class="line"></span><br><span class="line">​    age: 29,</span><br><span class="line"></span><br><span class="line">​    rname: &#x27;asdj&#x27;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = exports;</span><br><span class="line"></span><br><span class="line">module.exports.sex = &#x27;male&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>  最终输出结果为{age:29,rname:'asdj',sex:'male'}</p>
+</li>
+<li><p>建议在使用自定义模块的时候不要同时使用exports和module.exports</p>
+</li>
+</ul>
+</li>
+<li><p>总结</p>
+<p>  <strong>require()得到的永远都是module.exports指向的对象</strong></p>
+</li>
+</ul>
+</li>
+<li><p>Node.js模块化规范</p>
+<ul>
+<li>Node.js遵循CommonJS模块化规范<ul>
+<li>CommonJS规定<ol>
+<li>每隔模块内部module指的是当前模块</li>
+<li>module的exports属性是对外的接口</li>
+<li>加载模块加载的是module.export属性 require()用于加载模块</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>npm与包</p>
+<ul>
+<li><p>包的概念: 由第三方个人或团队开发出来的 Nodejs的包都是开源免费的</p>
+<blockquote>
+<p>包是由内置模块封装出来的     关系好比jQuery和浏览器内置API</p>
+</blockquote>
+<ul>
+<li><p>npm ink公司既提供</p>
+<ol>
+<li><p><a href="'https://www.npmjs.com/'">网站</a> 用来检索包的</p>
+</li>
+<li><p>服务器 用来下载包的</p>
+<ul>
+<li>下载时通过npm包管理工具下载 </li>
+<li>Nodejs下载的时候里面就有npm管理工具可以在终端输入npm -v查看有没有</li>
+</ul>
+</li>
+<li><p>格式化时间案例</p>
+<ul>
+<li><p>传统方法</p>
+<ul>
+<li><p>自定义模块</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const dt = new Date();</span><br><span class="line"></span><br><span class="line">function getTime()&#123;</span><br><span class="line"></span><br><span class="line">   const yy = dt.getFullYear();</span><br><span class="line"></span><br><span class="line">   const mm = buling(dt.getMonth()+1);</span><br><span class="line"></span><br><span class="line">   const dd = buling(dt.getDay());</span><br><span class="line"></span><br><span class="line">   const h = buling(dt.getHours());</span><br><span class="line"></span><br><span class="line">   const m = buling(dt .getMinutes());</span><br><span class="line"></span><br><span class="line">   const s = buling(dt.getSeconds());</span><br><span class="line"></span><br><span class="line">   return `$&#123;yy&#125;-$&#123;mm&#125;-$&#123;dd&#125;-$&#123;h&#125;-$&#123;m&#125;-$&#123;s&#125;`;</span><br><span class="line"></span><br><span class="line">   *// 封装函数获取当今时间*</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function buling(*n*)&#123;</span><br><span class="line"></span><br><span class="line">   return *n*&gt;9 ? *n* : &#x27;0&#x27;+*n*;*//补零操作*</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line"></span><br><span class="line">   *// 向外共享接口*</span><br><span class="line"></span><br><span class="line">   getTime</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>外部引用模块</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*// 引入时间模块*</span><br><span class="line"></span><br><span class="line">const time = require(&#x27;./14-格式化时间&#x27;);</span><br><span class="line"></span><br><span class="line">const ntime = new Date();</span><br><span class="line"></span><br><span class="line">*// 对时间进行格式化*</span><br><span class="line"></span><br><span class="line">const format = time.getTime(ntime);</span><br><span class="line"></span><br><span class="line">console.log(format);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>npm装moment包实现初始化</p>
+<ul>
+<li><p>如何装包: 在vscode终端里输入npm i moment</p>
+</li>
+<li><p>代码      <a href="'https://momentjs.com/docs/'">参考moment方法</a></p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const moment = require(&#x27;moment&#x27;);</span><br><span class="line"></span><br><span class="line">const format = moment().format(&#x27;YYYY-MM-DD HH:mm:ss&#x27;); </span><br><span class="line"></span><br><span class="line"> *// moment()获取当前时间 format()对当前时间进行初始化*</span><br><span class="line"></span><br><span class="line">console.log(format);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>装包注意点   <strong>不要随意修改包内容</strong></p>
+<ul>
+<li>node_module存放所有已安装好的包</li>
+<li>package_json记录每一个包的下载信息</li>
+</ul>
+</li>
+<li><p>安装指定版本的包</p>
+<ul>
+<li><p>默认情况下安装的都是最新的包</p>
+</li>
+<li><p>安装指定版本的包 </p>
+<blockquote>
+<p> npm i moment@版本号</p>
+</blockquote>
+</li>
+<li><p>不用删除原来的版本</p>
+</li>
+</ul>
+</li>
+<li><p>包版本解析 ex: 2.92.2</p>
+<ul>
+<li><p>第一个2 是大版本号</p>
+</li>
+<li><p>第二个92是指功能版本</p>
+</li>
+<li><p>第三个2是指Bug修复版本</p>
+<blockquote>
+<p>版本号提升规则: 当前一个版本号发生改变其后面的版本全部归0</p>
+<p>例如: 假如现在是3大版本后面的两个版本都变0      假如功能版本加一那么bug修复版本变为0</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>包管理配置文件package.json</p>
+<ul>
+<li><p>交代项目的版本号 名称 描述</p>
+</li>
+<li><p>项目用到哪些包哪些包开发期间使用</p>
+</li>
+<li><p>哪些包开发并部署时使用</p>
+</li>
+<li><p>注意点: 开发时一定要将node_module放到github的.gitignore忽略文件里</p>
+</li>
+<li><p>快速创建package.json    npm init -y</p>
+<blockquote>
+<p>项目文件夹一定不要有中文和空格</p>
+</blockquote>
+</li>
+<li><p>dependencies节点</p>
+<ul>
+<li><p>默认情况下没有该节点</p>
+</li>
+<li><p>作用: 用来记录你之前安装了哪些包</p>
+</li>
+<li><p>属性名为包的名字 属性值为包的版本</p>
+</li>
+<li><p>安装多个包</p>
+<blockquote>
+<p>npm i 第一个包空格第二个包</p>
+</blockquote>
+</li>
+<li><p>安装所有包(所有指的是读取到dependencies节点里的所有包)</p>
+<blockquote>
+<p>npm i</p>
+</blockquote>
+</li>
+<li><p>卸载包</p>
+<blockquote>
+<p>npm uninstall 包名</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>devDependencies</p>
+<ul>
+<li><p>记录某些只在开发时使用在上线后不会使用</p>
+<blockquote>
+<p>npm i 包名 -D</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解决下包问题慢的问题</p>
+<ul>
+<li><p>原因 默认情况下下包都是从国外进行下载</p>
+</li>
+<li><p>国内淘宝npm镜像服务器</p>
+<ul>
+<li><p>将国外npm包数据同步到国内的服务器上</p>
+</li>
+<li><p>对国内用户提供下包服务</p>
+<blockquote>
+<p>何为镜像: 一个磁盘上的数据在另一个磁盘上存在完全相同的副本</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>切换下包源</p>
+<ul>
+<li><p>查看npm下包地址</p>
+<blockquote>
+<p>npm config get registry //默认情况下是在国外npm官方下载</p>
+</blockquote>
+</li>
+<li><p>切换淘宝下载地址</p>
+<blockquote>
+<p>npm config set registry=<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org/</a></p>
+</blockquote>
+</li>
+<li><p>nrm</p>
+<ul>
+<li><p>为了更方便的查看和切换下包服务器地址</p>
+</li>
+<li><p>安装nrm</p>
+<blockquote>
+<p>npm i nrm -g</p>
+</blockquote>
+</li>
+<li><p>查看可用的下包服务器地址(镜像源)</p>
+<blockquote>
+<p>nrm ls</p>
+</blockquote>
+</li>
+<li><p>切换镜像源</p>
+<blockquote>
+<p>nrm use 镜像源</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>包的分类</p>
+<ul>
+<li><p>项目包: 被安装到node_module里的都是</p>
+<ul>
+<li>开发依赖包 被记录到devDependent节点的包</li>
+<li>核心依赖包 被记录到dependencies节点中的包</li>
+</ul>
+</li>
+<li><p>全局包</p>
+<ul>
+<li><p>nrm默认情况下被安装在用户文件夹npm下的nrm里</p>
+</li>
+<li><p>卸载全局包</p>
+<blockquote>
+<p>npm uninstall 包名 -g</p>
+</blockquote>
+</li>
+<li><p>判断是否需要安装全局包参考<a href="'https://www.npmjs.com/'">官方说明</a></p>
+</li>
+</ul>
+</li>
+<li><p>i5ting_toc包转化md为html</p>
+<ul>
+<li><p>安装i5ting_toc</p>
+<blockquote>
+<p>npm install -g i5ting_toc</p>
+</blockquote>
+</li>
+<li><p>转化html命令</p>
+<blockquote>
+<p>先cd到当前目录下</p>
+</blockquote>
+<blockquote>
+<p>i5ting_toc -f md文件名称 -o   </p>
+</blockquote>
+<p>  此时会创建一个preview文件夹里面就有你转化后的html文件  -o代表创建好后并在浏览器里打开html文件</p>
+</li>
+</ul>
+</li>
+<li><p>包的内部结构</p>
+<ul>
+<li>包都是以每一个单独的目录存在</li>
+<li>每一个包的顶级目录下必须包含package.json文件</li>
+<li>package.json必须包含name version main  分别代表了包的名字版本和入口</li>
+</ul>
+</li>
+<li><p>开发属于自己的包</p>
+<ul>
+<li><p>创建自己的包名里面包含三个文件 index.js  package.json README.md</p>
+<ol>
+<li><p>包的实现</p>
+<ul>
+<li><p>初始化时间的js代码</p>
+<ul>
+<li><p><em>入口文档</em></p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function FormatTime(*time*) &#123;</span><br><span class="line"></span><br><span class="line">   const dt = new Date(*time*);</span><br><span class="line"></span><br><span class="line">   const YY = dt.getFullYear();</span><br><span class="line"></span><br><span class="line">   const MM = fillzero(dt.getMonth()+1);</span><br><span class="line"></span><br><span class="line">   const DD = fillzero(dt.getDay());</span><br><span class="line"></span><br><span class="line">   const hh = fillzero(dt.getHours());</span><br><span class="line"></span><br><span class="line">   const mm = fillzero(dt.getMinutes());</span><br><span class="line"></span><br><span class="line">   const ss = fillzero(dt.getSeconds());</span><br><span class="line"></span><br><span class="line">   return `$&#123;YY&#125;-$&#123;MM&#125;-$&#123;DD&#125; $&#123;hh&#125;:$&#123;mm&#125;:$&#123;ss&#125;`;</span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">function fillzero(*n*) &#123;</span><br><span class="line"></span><br><span class="line">    return *n* &gt; 9 ? *n* : &#x27;0&#x27;+*n*;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line"></span><br><span class="line">   *// 外界只需要结果不需要fillzero填0的过程</span><br><span class="line">   FormatTime</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>Package.json文件代码</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    &quot;name&quot; : &quot;stream_clear&quot;,   //不要和npm官方里的包名冲突</span><br><span class="line"></span><br><span class="line">    &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;main&quot;: &quot;index.js&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;description&quot;: &quot;这是一个初始化时间的包&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;keywords&quot;: [&quot;format&quot;,&quot;timer&quot;],</span><br><span class="line"></span><br><span class="line">    &quot;license&quot;: &quot;ISC&quot;    </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用该包的代码</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const timer = require(&#x27;./diy_npm/index&#x27;); </span><br><span class="line">//此处不写index也行,因为当调用该包的时候无具体路径，会先去查看package.json文件的main入口再去调用index文件</span><br><span class="line">const ntime = new Date();</span><br><span class="line"></span><br><span class="line">const result = timer.FormatTime(ntime);</span><br><span class="line"></span><br><span class="line">console.log(result);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>定义转义HTML的标签</p>
+<ul>
+<li><p>目的: 为了防止用户在提交表单的时候输入的html字符被识别</p>
+</li>
+<li><p>代码如下</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function change(*htmlStr*) &#123;</span><br><span class="line"></span><br><span class="line">    *// 利用正则表达式将里面所有的html特殊字符筛选出来*</span><br><span class="line"></span><br><span class="line">    *// g代表了转义所有html字符</span><br><span class="line"></span><br><span class="line">    return *htmlStr*.replace(/&lt;|&gt;|&quot;|&amp;/g,(*match*)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">        switch(*match*) &#123;</span><br><span class="line"></span><br><span class="line">            case &#x27;&lt;&#x27; :</span><br><span class="line"></span><br><span class="line">                return &#x27;&amp;lt&#x27;;</span><br><span class="line"></span><br><span class="line">            case &#x27;&gt;&#x27; :</span><br><span class="line"></span><br><span class="line">                return &#x27;&amp;gt&#x27;;</span><br><span class="line"></span><br><span class="line">            case &#x27;&quot;&#x27; :</span><br><span class="line"></span><br><span class="line">                return &#x27;&amp;quot&#x27;;</span><br><span class="line"></span><br><span class="line">            case &#x27;&amp;&#x27; :</span><br><span class="line"></span><br><span class="line">                return &#x27;&amp;amp&#x27;;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line"></span><br><span class="line">    change</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>定义还原HTML标签</p>
+<ul>
+<li><p>目的; 将转移后的HTML标签再还原呈现在网页</p>
+</li>
+<li><p>代码如下</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function unchange(*htmlStr*)&#123;</span><br><span class="line"></span><br><span class="line">    return *htmlStr*.replace(/&amp;lt|&amp;gt|&amp;quot|&amp;amp/g,(*match*)=&gt;&#123;</span><br><span class="line"></span><br><span class="line">        switch(*match*) &#123;</span><br><span class="line"></span><br><span class="line">            case &#x27;&amp;lt&#x27;: </span><br><span class="line"></span><br><span class="line">                return &#x27;&lt;&#x27;;</span><br><span class="line"></span><br><span class="line">            case &#x27;&amp;gt&#x27;:</span><br><span class="line"></span><br><span class="line">                return &#x27;&gt;&#x27;;</span><br><span class="line"></span><br><span class="line">            case &#x27;&amp;quot&#x27;:</span><br><span class="line"></span><br><span class="line">                return &#x27;&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">            case &#x27;&amp;amp&#x27;:</span><br><span class="line"></span><br><span class="line">                return &#x27;&amp;&#x27;;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line"></span><br><span class="line">    unchange</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>模块化拆分</p>
+<ul>
+<li><p>思路:</p>
+<ol>
+<li><p>在包根目录下新建一个文件夹用来存放多个功能   src</p>
+</li>
+<li><p>每一个功能实现后向外提供接口   module.exports</p>
+</li>
+<li><p>因为最终main入口指向的是index.js所以需要在index.js里来接受所有的功能模块 </p>
+</li>
+<li><p>再通过外部去调用整个包即调用index.js</p>
+</li>
+</ol>
+</li>
+<li><p>代码第三部关键步骤</p>
+<p>  `const dt = require('./src/dt');  <em>//格式化时间模块</em></p>
+<p>  const ex = require('./src/exchange');   <em>//定义转换字符与还原字符</em></p>
+<p>  module.exports = {</p>
+<p>  ​    ...dt,   </p>
+<p>  ​    ...ex</p>
+<p>  ​    <em>//...扩展运算符将对象的属性全部展开</em></p>
+<p>  }`</p>
+</li>
+</ul>
+</li>
+<li><p>包的使用说明文档的书写(都需要以markdown的文本形式呈现)</p>
+<ol>
+<li><p>告诉用户如何安装你的npm包</p>
+<blockquote>
+<p>npm i ypn //简写你的包名</p>
+</blockquote>
+</li>
+<li><p>如何导入</p>
+<blockquote>
+<p>const ypn = require('ypn');</p>
+</blockquote>
+</li>
+<li><p>如何调用里面的方法 写方法介绍的时候每个方法都要独立开来</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//调用里面的formatTime方法初始化时间</span><br><span class="line">const dt = ypn.formatTime(new Date());</span><br><span class="line"></span><br><span class="line">//打印结果为2022-12-04 10:29:20</span><br><span class="line"></span><br><span class="line">console.log(dt);</span><br><span class="line">//转换前</span><br><span class="line">const waitchange = &#x27;&lt;h1 style=&quot;sad&quot;&gt;sad&amp;nbsp;&lt;/h1&gt;&#x27;;</span><br><span class="line">// 利用change方法转换后</span><br><span class="line">const comchange = paname.change(waitchange);</span><br><span class="line">// 最终结果为&amp;lth1 style=&amp;quotsad&amp;quot&amp;gtsad&amp;ampnbsp;&amp;lt/h1&amp;gt</span><br><span class="line">console.log(comchange);</span><br><span class="line">//还原前&amp;lth1 style=&amp;quotsad&amp;quot&amp;gtsad&amp;ampnbsp;&amp;lt/h1&amp;gt</span><br><span class="line">const renew = paname.unchange(waitchange);</span><br><span class="line">// 利用unchange方法还原后   &lt;h1 style=&quot;sad&quot;&gt;sad&amp;nbsp;&lt;/h1&gt;</span><br><span class="line">console.log(renew);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>说明开源协议</p>
+<blockquote>
+<p>ISC</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>注册npm账号</p>
+<ul>
+<li><p>官网直接注册即可</p>
+</li>
+<li><p>终端账号登陆</p>
+<blockquote>
+<p>npm login</p>
+<p>然后让你依次输入信息</p>
+<p>前提一定要将发包地址改为官方的否则发包失败</p>
+</blockquote>
+</li>
+<li><p>发布当前的包</p>
+<blockquote>
+<p>npm publish</p>
+</blockquote>
+</li>
+<li><p>删除已发布的包(只能在发布后72小时内进行删除, 上传删除的包必须要在24小时后才能发布)</p>
+<blockquote>
+<p>npm unpublish 包名 --force</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>模块的加载机制</p>
+<ul>
+<li>自定义模块的加载机制<ul>
+<li>模块优先从缓存中加载从而提高模块的加载效率</li>
+<li>当有自定义模块名和内置模块名冲突优先执行内置模块</li>
+<li>当使用require加载自定义模块的时候一定要以./ 或 ../的形式开头指明路径</li>
+<li>加载模块名字重复问题 <ul>
+<li>ex: 当文件下同时有 test test.js test.json test.node</li>
+<li>require('test'); <ol>
+<li>优先加载具体文件名</li>
+<li>其次是js文件</li>
+<li>其次是json文件</li>
+<li>最后是node文件</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第三方模块的加载机制<ul>
+<li>假如在当前文件下去加载一个任意模块<ol>
+<li>它首先会去在当前文件的根目录下去查找node_module里的模块</li>
+<li>没有的话去上一级根目录下查找</li>
+<li>依次查找</li>
+</ol>
+</li>
+<li>require去加载目录<ol>
+<li>首先去看文件夹里的package.json main属性</li>
+<li>没有则去加载index.js文件</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Express</p>
+<ol>
+<li><p>初识express</p>
+<ul>
+<li><p>概念</p>
+<ul>
+<li>创建Web服务器</li>
+<li>Express是基于http内置模块开发出来的</li>
+<li>常见的两种服务器:<ol>
+<li>Web服务器 对外提供网络资源</li>
+<li>API服务器 对外提供API接口</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>安装</p>
+<blockquote>
+<p>npm i express@版本号</p>
+</blockquote>
+</li>
+<li><p>搭建一个web服务器</p>
+  <figure class="highlight plaintext"><figcaption><span>导入express模块*</span></figcaption><table><tr><td class="code"><pre><span class="line">* const express = require(&#x27;express&#x27;);</span><br><span class="line"></span><br><span class="line">    *// 创建web服务器*</span><br><span class="line"></span><br><span class="line">    const app = express();</span><br><span class="line"></span><br><span class="line">    *// 启动服务器*</span><br><span class="line"></span><br><span class="line">    app.listen(80,()=&gt;&#123;</span><br><span class="line"></span><br><span class="line">      console.log(&#x27;端口已启动&#x27;);</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>监听请求</p>
+<ul>
+<li><p>get请求</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.get(&#x27;/user&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">		//向客户端响应一个JSON对象</span><br><span class="line">    res.send(&#123;age:28,rname:&#x27;asd&#x27;&#125;);</span><br><span class="line">    //向客户端响应一个文本字符</span><br><span class="line">    res.send(&#x27;hello world&#x27;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>post请求</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.post(&#x27;/user&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    //express提供的send方法可以返回JSON对象也可以是文本字符串</span><br><span class="line">    res.send(&#x27;请求已生效&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>req.query获取客户端发送过来的 查询参数</p>
+<blockquote>
+<p>查询参数的概念: url自己添加的参数   例: ?age=10&rname='avc'      req.query获取的是一个JSON对象{"age":"10","rname":"avc"}</p>
+</blockquote>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.get(&#x27;/url_num&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // req.query默认情况下为空对象</span><br><span class="line">    console.log(req.query);</span><br><span class="line">    res.send(req.query);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>get请求获取动态参数   必须要有  <strong>:</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.get(&#x27;/user/:id&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // id是参数名 输入的值是动态匹配过来的 </span><br><span class="line">    //req.params是动态匹配到的url参数 默认情况下为空对象 </span><br><span class="line">    console.log(req.params);</span><br><span class="line">    res.send(req.params);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里举个例子哈 ex: 假如你请求的url地址为127.0.0.1/user/10 req.params得到的结果为{"id":"10"} id属性名随便改user后面参数也是任意的</p>
+</blockquote>
+<ul>
+<li><p>可以匹配多个动态参数   相当于是多个**:**属性名和值一对一</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.get(&#x27;/user/:id/:rname&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // id是参数名 输入的值是动态匹配过来的 </span><br><span class="line">    //req.params是动态匹配到的url参数 默认情况下为空对象 </span><br><span class="line">    console.log(req.params);</span><br><span class="line">    res.send(req.params);</span><br><span class="line">&#125;)</span><br><span class="line">//只需要在url用/分隔就可以匹配</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>托管静态资源</p>
+<ul>
+<li><p>调用express.static()方法对外提供静态资源</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.use(express.static(&#x27;./clock&#x27;));</span><br><span class="line">// 通过它就可以访问到clock目录下的所有文件 想访问clock文件夹下的index.html 在url参数后面加上/index.html</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>托管多个静态资源目录</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.use(express.static(&#x27;./clock&#x27;));</span><br><span class="line">app.use(express.static(&#x27;./flew&#x27;));</span><br><span class="line">//当托管多个资源的时候会先去托管第一个静态资源目录如果没内容就托管第二个</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>托管静态资源前挂载前缀</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.use(&#x27;/public&#x27;,express.static(&#x27;./clock&#x27;));</span><br><span class="line">//代表在填写url时必须要加/public前缀</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>nodemon</p>
+<ul>
+<li><p>作用:在你修改代码并保存后会自动帮助你重启服务 和live-server类似</p>
+</li>
+<li><p>安装</p>
+<blockquote>
+<p>npm i -g nodemon</p>
+</blockquote>
+</li>
+<li><p>启动服务</p>
+<blockquote>
+<p>nodemon 文件名.js</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+<li><p>路由</p>
+<ol>
+<li><p>概念: 映射关系</p>
+</li>
+<li><p>Express路由分为三部分 请求方式 请求url地址 处理函数 </p>
+<blockquote>
+<p>Express里客户端请求和服务端处理函数就是映射关系</p>
+</blockquote>
+</li>
+<li><p>express配置路由代码实现</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.get(&#x27;/&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">		/代表url路径 /和后面的处理函数时映射关系</span><br><span class="line">    res.send(&#x27;hello world&#x27;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>挂载路由的简单实现</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.get(&#x27;/&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(&#x27;get request&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line">app.post(&#x27;/&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(&#x27;post request&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模块化路由</p>
+<ul>
+<li><p>创建路由模块</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">// 创建路由对象</span><br><span class="line">const routine = express.Router();</span><br><span class="line">// 挂载路由</span><br><span class="line">routine.get(&#x27;/get&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(&#x27;get module on&#x27;)</span><br><span class="line">&#125;)</span><br><span class="line">routine.post(&#x27;/post&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(&#x27;post module on&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line">// 向外导出路由对象</span><br><span class="line">module.exports = routine </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注册路由模块</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 导入路由模块</span><br><span class="line">const routine = require(&#x27;./18-module路由&#x27;);</span><br><span class="line">// 注册路由模块</span><br><span class="line">app.use(routine);</span><br><span class="line">//app.use用来注册全局中间件(后面会提到)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为路由模块加上前缀</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.use(&#x27;/app&#x27;,routine);  //意思是必须要加上/app前缀才能访问到响应结果</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>中间件</p>
+<ul>
+<li><p>概念: 中间处理过程</p>
+</li>
+<li><p>Express中间件调用流程</p>
+<blockquote>
+<p>在请求到达服务器的时候会调用多个中间件 从而达到预处理的效果</p>
+</blockquote>
+</li>
+<li><p>本质</p>
+<blockquote>
+<p>中间件本质上就是处理函数 参数中必须包含next参数 可以用来区分是中间件处理函数还是路由处理函数</p>
+</blockquote>
+</li>
+<li><p>next函数</p>
+<blockquote>
+<p>next可以实现多个中间件的调用 当第一个中间件执行完通过next调用下一个中间件最后到达路由</p>
+</blockquote>
+</li>
+<li><p>定义一个简单的中间件</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const cen = function(req,res,next)&#123;</span><br><span class="line">    console.log(&#x27;hello&#x27;);</span><br><span class="line">    // 将流转关系转交给下一个中间件</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局生效的中间件</p>
+<ul>
+<li><p>到达服务器后都会触发的中间件</p>
+<blockquote>
+<p>app.use(cen);</p>
+</blockquote>
+</li>
+<li><p>全局中间件实现案例</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const cen = function(req,res,next)&#123;</span><br><span class="line">    console.log(&#x27;hello&#x27;);</span><br><span class="line">    //在请求发送到服务端到时候就去打印hello</span><br><span class="line">    // 将流转关系转交给下一个中间件</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line">app.use(cen);</span><br><span class="line">app.get(&#x27;/&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">		console.log(&#x27;此时已经打印完中间件了&#x27;);</span><br><span class="line">    // 由于只有一个中间件这时打印路由返回的结果</span><br><span class="line">    res.send(&#x27;这时已经调用了路由了哦&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>简化版全局中间件的书写</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.use(function(req,res,next)&#123;</span><br><span class="line">    console.log(&#x27;hello world&#x27;);</span><br><span class="line">    next();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中间件的作用</p>
+<ul>
+<li><p>因为中间件都共享一份req和res   可以在上游的中间件req,res里添加自定义属性和值来供下游使用</p>
+</li>
+<li><p>代码展示</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.use((req,res,next)=&gt;&#123;</span><br><span class="line">    // 获取请求到达服务器的时间</span><br><span class="line">    const time = Date.now();</span><br><span class="line">    req.firstime = time;</span><br><span class="line">    next();</span><br><span class="line">&#125;)</span><br><span class="line">app.get(&#x27;/&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(&#x27;这次发送请求到达服务器的时间&#x27;+req.firstime);</span><br><span class="line">&#125;)</span><br><span class="line">app.get(&#x27;/index&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(&#x27;这次发送请求到达服务器的时间&#x27;+req.firstime);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>定义多个全局中间件</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.use((req,res,next)=&gt;&#123;</span><br><span class="line">    console.log(&#x27;第一个中间件&#x27;);</span><br><span class="line">    next();</span><br><span class="line">&#125;)</span><br><span class="line">app.use((req,res,nex)=&gt;&#123;</span><br><span class="line">    console.log(&#x27;第二个中间件&#x27;);</span><br><span class="line">    next();</span><br><span class="line">&#125;)</span><br><span class="line">app.get(&#x27;/&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    console.log(&#x27;这里是路由中心&#x27;);</span><br><span class="line">    res.send(&#x27;hello&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line">//按照定义的中间件的顺序去打印结果</span><br><span class="line">//中间件的结束标志是路由</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>局部生效的中间件</p>
+<ul>
+<li><p>概念: 不使用app.use定义的中间件 并且只会在当前中间件内生效</p>
+</li>
+<li><p>代码展示</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const m1 = function(req,res,next) &#123;</span><br><span class="line">    console.log(&#x27;这是一个局部中间件&#x27;);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line">app.get(&#x27;/&#x27;,m1,(req,res)=&gt;&#123;</span><br><span class="line">	//往路由中间添加一个中间件叫局部中间件</span><br><span class="line">    res.send(&#x27;hello&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line">app.get(&#x27;/index&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(&#x27;world&#x27;);</span><br><span class="line">    //在我们请求index时候并不会打印局部中间件里的内容</span><br><span class="line">    //而在全局作用域里会打印中间件里的内容</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义多个局部中间件</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const c1 = function(req,res,next)&#123;</span><br><span class="line">    console.log(&#x27;这时第一个中间件&#x27;);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line">const c2 = function(req,res,next)&#123;</span><br><span class="line">    console.log(&#x27;这时第二个中间件&#x27;);</span><br><span class="line">    next();</span><br><span class="line">&#125;</span><br><span class="line">//c1,c2 写成[c1,c2]也可以</span><br><span class="line">//创建路由 </span><br><span class="line">app.get(&#x27;/&#x27;,c1,c2,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(&#x27;nb&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(80,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;端口已启动&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>注意事项</p>
+<ol>
+<li>中间件一定要写在创建路由前面</li>
+<li>创建中间件的时候不要忘记加上next()</li>
+<li>next()后面不要写额外的代码</li>
+</ol>
+</li>
+<li><p>中间件的分类</p>
+<ol>
+<li><p>应用级别中间件 绑定到app身上的</p>
+</li>
+<li><p>路由级别中间件 绑定到Router实例上</p>
+</li>
+<li><p>错误中间件 用来捕获异常的</p>
+<ul>
+<li><p>代码展示</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.get(&#x27;/&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    throw new Error(&#x27;程序执行错误&#x27;);</span><br><span class="line">&#125;)</span><br><span class="line">app.use(function(err,req,res,next)&#123;</span><br><span class="line">		//err参数主要是用来捕获错误</span><br><span class="line">    console.log(&#x27;程序出错&#x27;);</span><br><span class="line">    res.send(&#x27;Error:&#x27;+err.message);</span><br><span class="line">    //err.message就是上面抛出的错误提示</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意事项: 错误中间件一定注册在路由后面</p>
+</li>
+</ul>
+</li>
+<li><p>内置中间件 <strong>使用postman一定要下载客户端 web版不支持本地服务</strong></p>
+<ul>
+<li><p>express.static 解析静态资源</p>
+</li>
+<li><p>express.json 解析JSON表单数据 Express4.16.0+兼容</p>
+<blockquote>
+<p>配置express.json中间件来解析客户端发送的JSON数据</p>
+</blockquote>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//req.params,req.query是用在get请求当中，而req.body是用在post请求中的</span><br><span class="line">app.use(express.json());//配置解析中间件</span><br><span class="line">app.post(&#x27;/user&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    //服务器使用req.body来接收客户端发送的url-encoded格式的数据</span><br><span class="line">    //如果想要获取客户端发送的表单数据 需要配置解析中间件</span><br><span class="line">    console.log(req.body);</span><br><span class="line">    res.send(&#x27;hello&#x27;);</span><br><span class="line">&#125;) </span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>express.urlencoded 解析URL-encoded形式的表单数据 Express4.16.0+兼容</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//同理通过配置urlencoded来解析对象</span><br><span class="line">app.use(express.urlencoded(&#123;extended : false&#125;));</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>第三方中间件</p>
+<ul>
+<li><p>安装body-parser中间件</p>
+<blockquote>
+<p>npm i body-parser</p>
+</blockquote>
+</li>
+<li><p>使用body-parser中间件来实现服务端对客户端发送的请求进行解析</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const parser = require(&#x27;body-parser&#x27;); </span><br><span class="line">app.use(parser.urlencoded(&#123;extended:false&#125;)); //express.urlencoded是基于该中间件封装出来的</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>自定义中间件</p>
+<ul>
+<li><p>调用中间件代码</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const app = express();</span><br><span class="line"></span><br><span class="line">// 定义一个解析表单数据的中间件</span><br><span class="line">const fn = require(&#x27;./封装的中间件函数&#x27;);</span><br><span class="line">// 将自定义的中间件注册为全局可用的中间件</span><br><span class="line">app.use(fn);</span><br><span class="line">app.post(&#x27;/&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(req.dt);</span><br><span class="line">&#125;)</span><br><span class="line">app.listen(80,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;服务端口已启动&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>封装的中间件函数代码</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const qs = require(&#x27;querystring&#x27;);</span><br><span class="line">const fn = (req,res,next)=&gt;&#123;</span><br><span class="line">    // str用来接收客户端发送过来的表单数据</span><br><span class="line">    let str = &#x27;&#x27;;</span><br><span class="line">    // 监听data事件</span><br><span class="line">    req.on(&#x27;data&#x27;,(chunk)=&gt;&#123;</span><br><span class="line">        // 如果数据量比较大需要将其分割成很多份的chunk数据</span><br><span class="line">        str+=chunk;</span><br><span class="line">    &#125;)</span><br><span class="line">    // 监听end事件拿到完整的表单数据</span><br><span class="line">    req.on(&#x27;end&#x27;,(chunk)=&gt;&#123;</span><br><span class="line">        // console.log(str);</span><br><span class="line">        // 拿到完整的字符后需要将其转化为对象</span><br><span class="line">        const dt = qs.parse(str);</span><br><span class="line">        // 利用querystring的parse方法将字符串解析为对象</span><br><span class="line">        // console.log(dt);</span><br><span class="line">        // 挂载到req的属性身上</span><br><span class="line">        req.dt = dt;</span><br><span class="line">        next();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">//导出中间件封装函数</span><br><span class="line">module.exports = fn;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>利用express书写接口</p>
+<ul>
+<li><p>调用路由模块</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">const app = express();</span><br><span class="line">app.use(express.urlencoded(&#123;extended : false&#125;));</span><br><span class="line">当解析url-encoded类型的数据必须要配置中间件</span><br><span class="line">const router = require(&#x27;./挂载路由&#x27;);</span><br><span class="line">// /api为统一的访问路径</span><br><span class="line">// 在这里router就是一个中间件</span><br><span class="line">app.use(&#x27;/api&#x27;,router);</span><br><span class="line">app.listen(80,()=&gt;&#123;</span><br><span class="line">    console.log(&#x27;服务器已启动&#x27;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>路由模块制作</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const express = require(&#x27;express&#x27;);</span><br><span class="line">// 挂载对应路由</span><br><span class="line">const router = express.Router();</span><br><span class="line">//挂载get请求</span><br><span class="line">router.get(&#x27;/get&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    //通过req.query通过查询字符串 拿到客户端发送到服务端的数据</span><br><span class="line">    const query = req.query;</span><br><span class="line">    //将完整的数据再返回到客户端</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        status: 0,</span><br><span class="line">        msg : &#x27;请求成功&#x27;,</span><br><span class="line">        data: query</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">挂载post请求</span><br><span class="line">router.post(&#x27;/post&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    const body = req.body;</span><br><span class="line">    //通过req.body获取的是包含url-encoded类型的数据</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        status: 0,</span><br><span class="line">        msg: &#x27;post请求成功&#x27;,</span><br><span class="line">        data: body</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">module.exports = router;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>跨域问题</p>
+<ul>
+<li><p>概念 当请求的网页和接口 协议 端口号 域名任意一个不同就会出现跨域问题 </p>
+</li>
+<li><p>解决方法</p>
+<ol>
+<li><p>CORS 推荐使用</p>
+<ul>
+<li><p>操作流程(CORS里第一种实现跨域的方法)</p>
+<ul>
+<li>安装</li>
+</ul>
+<blockquote>
+<p>npm i cors</p>
+</blockquote>
+<ul>
+<li>导入cors模块</li>
+</ul>
+<blockquote>
+<p>const cors = require('cors');</p>
+</blockquote>
+<ul>
+<li>配置全局中间件</li>
+</ul>
+<blockquote>
+<p>app.use(cors())</p>
+</blockquote>
+</li>
+<li><p>CORS概念(跨域资源共享)</p>
+<ul>
+<li>是由一系列响应头构成 这些HTTP响应头决定是否要阻止JS代码获取网页资源 </li>
+<li>所以可以在服务端配置cors相关的响应头 就可与解除限制</li>
+</ul>
+</li>
+<li><p>设置响应头(CORS里第二种实现跨域的方法)</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 设置允许来自任何网页的请求</span><br><span class="line">res.setHeader(&#x27;Access-Control-Allow-Origin&#x27;,&#x27;*&#x27;);</span><br><span class="line">//设置只允许百度的请求</span><br><span class="line">res.setHeader(&#x27;Access-Control-Allow-Origin&#x27;,&#x27;https://www.baidu.com/&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>  CORS仅支持的九个响应头<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1a34y167AZ?p=54&spm_id_from=pageDriver&vd_source=e9bfdb3098ad69cc5bdc6786ce0ecb4c">参考入口</a></p>
+</li>
+<li><p>设置请求方法</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//允许任何请求方法</span><br><span class="line">res.setHeader(&#x27;Access-Control-Allow-Methods&#x27;,&#x27;*&#x27;);</span><br><span class="line">//只允许post和get请求</span><br><span class="line">res.setHeader(&#x27;Access-Control-Allow-Origin&#x27;,&#x27;POST GET&#x27;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>请求类型</p>
+<ul>
+<li><p>简单请求</p>
+<ol>
+<li>必须是GET POST HEAD这三种请求方式</li>
+<li>HTTP头部信息不超过某些字段 无自定义字段</li>
+</ol>
+</li>
+<li><p>预检请求(option请求)</p>
+<ol>
+<li><p>简单请求外的请求方式</p>
+</li>
+<li><p>向服务器发送application/json数据类的请求</p>
+</li>
+<li><p>作用是判断服务器是否允许该请求预检后才能发送真正的请求</p>
+</li>
+</ol>
+</li>
+<li><p>区别</p>
+<ol>
+<li>简单请求只会发送一次请求</li>
+<li>预检请求会发送两次 一次option请求一次真正请求</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>JSONP</p>
+<ul>
+<li><p>概念 通过script标签的src属性请求数据 通过函数返回数据</p>
+</li>
+<li><p>特点</p>
+<ul>
+<li>不属于AJAX请求 因为没有XMLHttpRequest对象</li>
+<li>只支持get请求</li>
+<li>JSONP接口必须要在CORS中间件之前声明</li>
+</ul>
+</li>
+<li><p>配置JSONP接口</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.get(&#x27;/api/jsonp&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    //得到函数名称</span><br><span class="line">    const funcname = req.query.callback;</span><br><span class="line">    //定义发送到客户端的数据</span><br><span class="line">    const data = &#123;rname:&#x27;sad&#x27;,age:29&#125;;</span><br><span class="line">    //拼接函数调用 函数的参数一定得是JSON格式的字符串</span><br><span class="line">    const sciptstr = `$&#123;funcname&#125;($&#123;JSON.stringify(data)&#125;)`;</span><br><span class="line">    // 响应到客户端</span><br><span class="line">    res.send(sciptstr);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JQuery发送jsonp请求</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$(&#x27;.jsonp&#x27;).on(&#x27;click&#x27;,function()&#123;</span><br><span class="line">            $.ajax(&#123;</span><br><span class="line">                type: &#x27;GET&#x27;,</span><br><span class="line">                url: &#x27;http://127.0.0.1/api/jsonp&#x27;,</span><br><span class="line">                dataType: &#x27;jsonp&#x27;, //表示要发起jsonp请求</span><br><span class="line">                success: function(res)&#123;</span><br><span class="line">                    console.log(res);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数据库 </p>
+<ul>
+<li><p>概念: 组织 存储 管理数据</p>
+</li>
+<li><p>常见数据库(相互弥补)</p>
+<ol>
+<li>传统数据库<ol>
+<li>MySQL</li>
+<li>Oracle</li>
+<li>SQL Server</li>
+</ol>
+</li>
+<li>新型数据库<ol>
+<li>Mongodb</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>数据组织结构</p>
+<ul>
+<li>参考Excel<ul>
+<li>工作簿 整个excel窗口</li>
+<li>工作表 页签</li>
+<li>数据行</li>
+<li>列</li>
+</ul>
+</li>
+<li>传统数据组织结构<ul>
+<li>数据库</li>
+<li>数据表</li>
+<li>数据行</li>
+<li>字段</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>安装MySQL <a href="'https://www.bilibili.com/video/BV1a34y167AZ?p=59&spm_id_from=pageDriver&vd_source=e9bfdb3098ad69cc5bdc6786ce0ecb4c'">教程</a></p>
+<ul>
+<li>MySQL Server 提供数据存储和服务 <a href="'https://dev.mysql.com/downloads/mysql/'">官方网址</a></li>
+<li>MySOL Workbench 操作管理存储在MySQL里的数据 <a href="'https://dev.mysql.com/downloads/workbench/'">官方网址</a></li>
+</ul>
+</li>
+<li><p>MySQL的基本使用</p>
+<ul>
+<li><p>进入workbench应用点击左下角的root输入MySQL密码</p>
+<ul>
+<li><p>主界面的组成</p>
+  <img src="/Users/satrol_/Pictures/主界面.png" style="zoom:50%;" />
+</li>
+<li><p>创建完整的数据库 </p>
+<ul>
+<li><p>创建一个数据库</p>
+<blockquote>
+<p>工具栏点击加号圆柱一路apply就可以  </p>
+</blockquote>
+</li>
+<li><p>创建一个数据表</p>
+<ul>
+<li>展开创建好的数据库</li>
+<li>右键里面的table</li>
+<li>设置字段 分别给上值并且设置类型和文字描述</li>
+</ul>
+</li>
+<li><p>设置字段标识</p>
+<ul>
+<li>PK 表示主键</li>
+<li>NN 表示设置数值不能为空</li>
+<li>UQ 表示值唯一</li>
+<li>AI 表示值会自动增长</li>
+</ul>
+</li>
+<li><p>插入数据</p>
+<ul>
+<li>右键创建好的数据表 点击Select-Row</li>
+<li>字段标识AI 和 含默认值的数据可以不写会自动帮你补齐</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>SQL</p>
+<ol>
+<li><p>概念: 结构化查询语言,可以通过编写代码的形式去操控数据库的数据</p>
+</li>
+<li><p>SOL学习目标</p>
+<ul>
+<li><p>增</p>
+</li>
+<li><p>删</p>
+</li>
+<li><p>改</p>
+</li>
+<li><p>查</p>
+</li>
+</ul>
+</li>
+<li><p>SOL语法</p>
+<ul>
+<li><p>注意事项</p>
+<ul>
+<li>注释:  -- 空格接内容</li>
+<li>关键字对大小写不敏感</li>
+</ul>
+</li>
+<li><p>查询数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 查询数据库里的所有数据</span><br><span class="line">-- select * from 01_db.users</span><br><span class="line">-- 查询数据库里的用户名和密码</span><br><span class="line">select username,password from 01_db.users</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 插入数据</span><br><span class="line">insert into 01_db.users (username,password) values (&#x27;sad&#x27;,&#x27;12345&#x27;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新用户的数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 将id=3这个人的密码更新为987654</span><br><span class="line">update 01_db.users set password=&#x27;987654&#x27; where id=3</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 更新单行里的多列</span><br><span class="line">update 01_db.users set password=&#x27;8888&#x27;,status=1 where id=2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 删除id=3的数据</span><br><span class="line">delete from 01_db.users where id=3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Where子句</p>
+<blockquote>
+<p>where子句里可以使用运算符来限定select的查询条件   < >可以写成!=</p>
+</blockquote>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 选出状态等于1的数据</span><br><span class="line">-- select * from 01_db.users where status=1</span><br><span class="line">-- 选出id小于3的数据</span><br><span class="line">-- select * from 01_db.users where id&lt;3</span><br><span class="line">-- 选出密码不等于8888的数据</span><br><span class="line">-- select * from 01_db.users where password&lt;&gt;&#x27;8888&#x27;</span><br><span class="line">-- select * from 01_db.users where password!=&#x27;8888&#x27;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>AND和OR运算符</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 筛选密码为8888并且状态为1的数据  and相当于&amp;&amp;</span><br><span class="line">-- select * from 01_db.users where password=&#x27;8888&#x27; and status=1</span><br><span class="line">-- 筛选状态为1或者是用户名为zs的数据 or相当于||</span><br><span class="line">-- select * from 01_db.users where status=1 or username=&#x27;zs&#x27;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>排序 </p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- ASC代表升序排序 默认情况下是升序</span><br><span class="line">-- 将status从小到大排序</span><br><span class="line">-- select * from 01_db.users order by status ASC </span><br><span class="line">-- DESC代表降序排序</span><br><span class="line">-- 将id从大到小进行排序</span><br><span class="line">-- select * from 01_db.users order by id desc </span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 多重排序 查询status倒序排列username字母升序</span><br><span class="line">select * from 01_db.users order by status desc,username asc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>COUNT(*) </p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 统计status为0的数据的总条数</span><br><span class="line">select count(*) from 01_db.users where status=0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>AS起别名</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 给统计好的条数起别名total</span><br><span class="line">-- select count(*) as total from 01_db.users where status</span><br><span class="line">-- 给密码起别名为pwd</span><br><span class="line">-- select password as pwd from 01_db.users</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>在项目里操作MySOL  </p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const mysql = require(&#x27;mysql&#x27;);</span><br><span class="line">//建立与mysql数据库的连接</span><br><span class="line">const db = mysql.createPool(&#123;</span><br><span class="line">    host: &#x27;127.0.0.1&#x27;, //数据库的ip地址</span><br><span class="line">    user: &#x27;root&#x27;,   //登陆数据库的账号</span><br><span class="line">    password: &#x27;admin123&#x27;, //mysql的密码</span><br><span class="line">    database: &#x27;01_db&#x27;, //要操作数据库的名字</span><br><span class="line">&#125;)</span><br><span class="line">// 测试mysql模块是否可以正常工作</span><br><span class="line">// select1是用来判断是否能执行sql模块的</span><br><span class="line">db.query(&#x27;select 1&#x27;,(err,result)=&gt;&#123;</span><br><span class="line">    if (err) return console.log(err.message);</span><br><span class="line">    // 如果正常执行打印result结果</span><br><span class="line">    console.log(result);</span><br><span class="line">&#125;)</span><br><span class="line">//返回结果为[ RowDataPacket &#123; &#x27;1&#x27;: 1 &#125; ]则证明引入成功</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>查询数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const sqldb = &#x27;select * from users&#x27;;</span><br><span class="line">db.query(sqldb,(err,result)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    console.log(result);</span><br><span class="line">    //执行结果都是以数组的形式存储的对象</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//定义待插入的语句</span><br><span class="line">const human = &#123;username: &#x27;star&#x27;,password: &#x27;123456&#x27;&#125;;</span><br><span class="line">//? 充当占位符好方便human插入数据</span><br><span class="line">const insql = &#x27;insert into users (username,password) values (?,?)&#x27;;</span><br><span class="line">// 可以使用数组的形式依次为占位符添加值</span><br><span class="line">db.query(insql,[human.username,human.password],(err,result)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    // 插入语句通过affectedRows来判断是否插入成功</span><br><span class="line">    // 如果响应的行数为1则代表该数据插入成功</span><br><span class="line">    else if(result.affectedRows===1) &#123;</span><br><span class="line">        // 在这里面result是一个对象</span><br><span class="line">        console.log(&#x27;插入数据成功&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>  注意点: 之前的数据如果被删除了也依旧占据它的位置</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//插入数据的便捷方式</span><br><span class="line">const human = &#123;username:&#x27;mmm&#x27;,password: &#x27;123456&#x27;&#125;;</span><br><span class="line">// 待执行的sql语句</span><br><span class="line">const insql = &#x27;insert into users set ?&#x27;;</span><br><span class="line">// 直接将数据对象human当作占位符的值</span><br><span class="line">db.query(insql,human,(err,result)=&gt;&#123;</span><br><span class="line">    if(err)return console.log(err.message);</span><br><span class="line">    else if(result.affectedRows===1) &#123;</span><br><span class="line">        console.log(&#x27;插入成功&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const up10 = &#123;username:&#x27;ldh&#x27;,password:&#x27;0000&#x27;,id:10&#125;;</span><br><span class="line">const upsql = &#x27;update users set username=?,password=? where id=?&#x27;;</span><br><span class="line">db.query(upsql,[up10.username,up10.password,up10.id],(err,result)=&gt;&#123;</span><br><span class="line">    if(err)return err.message;</span><br><span class="line">    else if(result.affectedRows===1) &#123;</span><br><span class="line">        console.log(&#x27;更新成功&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//更新数据的便捷方式</span><br><span class="line">const up12 = &#123;username: &#x27;hill&#x27;,password: &#x27;9999&#x27;,id:12&#125;;</span><br><span class="line">const upsql = &#x27;update users set ? where id=?&#x27;;</span><br><span class="line">db.query(upsql,[up12,up12.id],(err,result)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    if(result.affectedRows===1) &#123;</span><br><span class="line">        console.log(&#x27;更新成功&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const del1 = &#x27;delete from users where id=?&#x27;;</span><br><span class="line">// 当只需要删除单个数据的时候不需要用对象加数组的形式去删除 </span><br><span class="line">db.query(del1,1,(err,result)=&gt;&#123;</span><br><span class="line">    if (err) return console.log(err.message);</span><br><span class="line">    // delete结果也是一个对象也有affecedRows属性</span><br><span class="line">    else if (result.affectedRows===1) &#123;</span><br><span class="line">        console.log(&#x27;删除成功&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>  使用delete删除语句会真正删除用户数据为了保险起见使用标记status删除更好</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//标记删除</span><br><span class="line">const upsql = &#x27;update users set status=? where id=?&#x27;;</span><br><span class="line">db.query(upsql,[1,12],(err,result)=&gt;&#123;</span><br><span class="line">    if(err) return console.log(err.message);</span><br><span class="line">    if(result.affectedRows===1) &#123;</span><br><span class="line">        console.log(&#x27;标记删除成功&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Web开发模式</p>
+<ul>
+<li><p>服务端渲染的Web开发模式</p>
+<ul>
+<li><p>概念 服务端通过字符串动态拼接</p>
+</li>
+<li><p>优缺点</p>
+<ul>
+<li><p>优点</p>
+<ol>
+<li><p>耗时少</p>
+</li>
+<li><p>有利于SEO 渲染的是完整的画面 方便爬虫</p>
+</li>
+</ol>
+</li>
+<li><p>缺点 </p>
+<ol>
+<li><p>服务端压力大 请求多 字符串拼接</p>
+</li>
+<li><p>不利于前后端开发 任务都在服务端</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>前后端分离</p>
+<ul>
+<li>概念 后端提供API接口前端利用AJAX调用接口</li>
+<li>优缺点 <ul>
+<li>优点<ol>
+<li>前后端各专注各的</li>
+<li>用户可以实现AJAX局部更新</li>
+<li>减轻服务器渲染压力</li>
+</ol>
+</li>
+<li>缺点<ol>
+<li>不利于SEO 因为拼接页面的过程是在客户端实现的</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>如何选择</p>
+<ul>
+<li>不怎么注重交互性 想要良好的SEO 选渲染</li>
+<li>反之选前后端分离</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>身份认证</p>
+<ul>
+<li><p>概念 一定手段完成对用户信息的确认</p>
+</li>
+<li><p>不同开发模式下的身份认证</p>
+<ol>
+<li><p>服务端渲染 	Session认证机制</p>
+<ul>
+<li><p>HTTP的无状态性</p>
+<blockquote>
+<p>客户端的每一次http请求都是独立的 服务端不会保留每次的http请求</p>
+</blockquote>
+</li>
+<li><p>突破HTTP的无状态性 </p>
+<blockquote>
+<p>利用cookie保留客户端本次的http请求 cookie相当于会员卡</p>
+</blockquote>
+</li>
+<li><p>cookie</p>
+<ol>
+<li><p>cookie是存储在浏览器里不超过4KB的字符串 </p>
+<blockquote>
+<p>由键值对,有效期,安全性,使用范围组成</p>
+</blockquote>
+</li>
+<li><p>各个域名下的cookie是独立的 </p>
+<blockquote>
+<p>当用户请求的时候会将当前域名下未过期的所有cookie发送到服务器 来验证用户身份</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>Cookie在身份认证的作用</p>
+<ul>
+<li><p>身份认证的流程</p>
+<ol>
+<li>客户端在浏览器内登陆</li>
+<li>服务器通过响应头的形式给浏览器Cookie</li>
+<li>浏览器保存Cookie到当前域名下</li>
+<li>下一次用户再访问该域名网站 浏览器以请求头的形式发送Cookie给服务器</li>
+<li>服务器确认用户身份 响应对应的结果</li>
+</ol>
+</li>
+<li><p>cookie不具有安全性</p>
+<ol>
+<li>cookie很容易被伪造</li>
+<li>不建议使用cookie保存用户信息</li>
+</ol>
+</li>
+<li><p>session认证机制核心</p>
+<blockquote>
+<p>不仅需要客户端出示cookie 还需要服务端对出示的cookie进行认证</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>配置session中间件</p>
+<ul>
+<li><p>安装express-session</p>
+<blockquote>
+<p>npm i express-session</p>
+</blockquote>
+</li>
+<li><p>代码配置</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 配置session中间件</span><br><span class="line">const session = require(&#x27;express-session&#x27;);</span><br><span class="line">app.use(session(&#123;</span><br><span class="line">    secret: &#x27;user_msg&#x27;,</span><br><span class="line">    resave: false,</span><br><span class="line">    saveUninitialized: true</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>session代码演示</p>
+<ul>
+<li><p>往session里存数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 存储数据</span><br><span class="line">app.post(&#x27;/api/login&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 判断用户输入的数据是否正确</span><br><span class="line">    if(req.body.username!==&#x27;admin&#x27;||req.body.password!==&#x27;12345&#x27;) &#123;</span><br><span class="line">        return res.send(&#123;status:1,msg:&#x27;登陆失败&#x27;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    // req.session是用来存储用户信息的</span><br><span class="line">    req.session.user = req.body;</span><br><span class="line">    req.session.islogin = true;</span><br><span class="line">    res.send(&#123;status:0,msg:&#x27;登陆成功&#x27;&#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从session里获取数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.get(&#x27;/api/username&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    if(!req.session.islogin) &#123;</span><br><span class="line">        return res.send(&#123;status:1,msg:&#x27;fail&#x27;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        status:0,</span><br><span class="line">        msg: &#x27;success&#x27;,</span><br><span class="line">        username: req.session.user.username </span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>清除session里的数据</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//清除数据</span><br><span class="line">app.post(&#x27;/api/logout&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    // 清空所在客户端的session信息</span><br><span class="line">    req.session.destroy();</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        status:0,</span><br><span class="line">        msg: &#x27;退出登陆成功&#x27;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>session认证是不支持跨域请求的</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>前后端分离      JWT身份认证机制</p>
+<ul>
+<li><p>概念 :JWT是 <strong>跨域</strong> 认证解决方案</p>
+</li>
+<li><p>工作原理</p>
+<ol>
+<li>用户通过浏览器向服务端发送信息</li>
+<li>服务端将信息加密生成token字符串再将其保存到浏览器的localstroage或sessionstorage  服务器不保存该信息</li>
+<li>当再次访问浏览器通过请求头的Authentic将token传递给服务端</li>
+<li>服务端还原用户数据 验证信息</li>
+<li>两种区别 JWT信息保存在浏览器里 而Session是将信息保存在服务端</li>
+</ol>
+</li>
+<li><p>JWT组成部分   三者以.号分隔</p>
+<ol>
+<li>头部(Header)<ul>
+<li>保证用户安全性</li>
+</ul>
+</li>
+<li>有效荷载(Payload)<ul>
+<li>Payload是用户信息加密后的字符串</li>
+</ul>
+<ol start="3">
+<li>签名(Signature)</li>
+</ol>
+<ul>
+<li>保证用户安全性</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>express中生成token</p>
+<ul>
+<li><p>下载 jsonwebtoken(用来生成jwt字符)和express-jwt(用来将jwt字符转化为JSON对象)</p>
+<blockquote>
+<p>npm i jsonwebtoken express-jwt </p>
+<p>自行调整版本 npm i 包名@version</p>
+</blockquote>
+<p>  引入模块</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const expressjwt = require(&#x27;express-jwt&#x27;);</span><br><span class="line">const jwt = require(&#x27;jsonwebtoken&#x27;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义secret密钥 用于对JWT字符的加密和解密</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const secretKey = &#x27;*_*&#x27;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用jsonwebtoken的sign方法生成JWT字符</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.post(&#x27;/&#x27;,(req,res)=&gt;&#123;</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        status: 200,</span><br><span class="line">        msg: &#x27;登陆成功&#x27;,</span><br><span class="line">        token: jwt.sign(&#123;username:req.body.username&#125;,secretKey,&#123;expiresIn:&#x27;30s&#x27;&#125;)</span><br><span class="line">        // 三个参数分别为用户的信息 密钥 token有效期    </span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将JWT转化为JSON对象</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//配置对象里的内容表示使用这个密钥对jwt字符进行解密</span><br><span class="line">// unless指定那些接口不需要访问权限 利用正则表达式表示凡是以/api开头的都不需要访问权限</span><br><span class="line">app.use(expressjwt(&#123;secret:secretKey&#125;).unless(&#123;path:[/^\/api\//]&#125;));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在配置好express-jwt的前提下,可以在有权限的接口下通过req.user解析用户信息</p>
+</li>
+<li><p>注意事项 </p>
+<ul>
+<li>不要将密码信息加密到token里否则很容易被别人通过req.user将密码获取</li>
+<li>解析token前需要加Bearer</li>
+</ul>
+</li>
+<li><p>捕获JWT解析失败的不同结果</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">app.use((err,req,res,next)=&gt;&#123;</span><br><span class="line">    if (err.name===&#x27;UnauthorizedError&#x27;) &#123;</span><br><span class="line">        //当token过期或不合法返回UnauthorizedError这类错误</span><br><span class="line">        return res.send(&#123;</span><br><span class="line">            status: 401,</span><br><span class="line">            msg: &#x27;无效的token&#x27;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    res.send(&#123;</span><br><span class="line">        status:500,</span><br><span class="line">        msg: &#x27;未知的错误&#x27;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://sloplerol.github.io">Satrol_</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://sloplerol.github.io/2022/12/05/Nodejs/">https://sloplerol.github.io/2022/12/05/Nodejs/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://avatars.githubusercontent.com/u/109008086?v=4" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/03/01/%E8%8A%82%E7%82%B9%E6%90%AD%E5%BB%BA%E7%B3%BB%E5%88%97/" title="节点搭建"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">节点搭建</div></div></a></div><div class="next-post pull-right"><a href="/2022/12/01/promise/" title="Promise 笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Promise 笔记</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-js-web%E5%8C%85%E7%AE%A1%E7%90%86-mysql%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">Node.js,web包管理,mysql数据的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By Satrol_</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Welcome to my site !!!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="Switch Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
