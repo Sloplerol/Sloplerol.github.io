@@ -10,7 +10,7 @@
 
 
 
-# Intall Homebrew
+# Install Homebrew
 
 参考CSDN:[https://blog.csdn.net/qq_43783527/article/details/125242300](https://blog.csdn.net/qq_43783527/article/details/125242300)
 
